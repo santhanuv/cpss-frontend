@@ -29,6 +29,14 @@ const theme = {
         fontSize: "20px",
         fontWeight: "500",
       },
+      small: {
+        fontSize: "22px",
+        fontWeight: "400",
+      },
+      smallPlus: {
+        fontSize: "22px",
+        fontWeight: "500",
+      },
       regular: {
         fontSize: "24px",
         fontWeight: "400",
