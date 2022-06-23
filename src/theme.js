@@ -10,6 +10,16 @@ const theme = {
     error: "#D10F0F",
   },
   typo: {
+    title: {
+      small: {
+        fontSize: "28px",
+        fontWeight: "400",
+      },
+      smallPlus: {
+        fontSize: "28px",
+        fontWeight: "600",
+      },
+    },
     label: {
       mini: {
         fontSize: "20px",
