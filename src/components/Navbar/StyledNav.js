@@ -8,7 +8,7 @@ const StyledNav = styled.nav`
   display: flex;
   justify-content: space-between;
   width: 100%;
-  padding: 30px 120px;
+  margin-bottom: 50px;
 `;
 
 const StyledNavList = styled.ul`
