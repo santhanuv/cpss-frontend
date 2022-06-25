@@ -1,5 +1,6 @@
 import StyledTextInput from "./StyledTextInput";
 import StyledLabel from "./StyledLabel";
+import Wrapper from "./Wrapper";
 import { StyledErrorText, StyledErrorIcon } from "./StyledError";
 import { MdError } from "react-icons/md";
 
@@ -17,7 +18,7 @@ const TextField = ({
   const inputID = id ? id : name;
 
   return (
-    <div>
+    <Wrapper>
       <StyledLabel htmlFor={inputID}>{label}</StyledLabel>
       <StyledTextInput
         type={type}
@@ -35,7 +36,7 @@ const TextField = ({
           {errorMsg}
         </StyledErrorText>
       )}
-    </div>
+    </Wrapper>
   );
 };
 
