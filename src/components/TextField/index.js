@@ -12,6 +12,7 @@ const TextField = ({
   isRequired = false,
   value,
   onChange,
+  placeholder = "",
   name,
   id = null,
 }) => {
@@ -24,6 +25,7 @@ const TextField = ({
         type={type}
         isRequired={isRequired}
         value={value}
+        placeholder={placeholder}
         onChange={onChange}
         name={name}
         id={inputID}
