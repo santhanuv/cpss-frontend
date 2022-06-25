@@ -4,7 +4,7 @@ const StyledTextInput = styled.input`
   width: 100%;
   margin-bottom: 16px;
   border: ${({ theme }) => `1px solid ${theme.colors.textPrimary}`};
-  border-radius: 8px;
+  border-radius: 4px;
   padding: 8px 16px;
   background-color: ${({ theme }) => theme.colors.background};
   :focus {
