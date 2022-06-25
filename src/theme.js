@@ -19,6 +19,14 @@ const theme = {
         fontSize: "28px",
         fontWeight: "600",
       },
+      headline: {
+        fontSize: "48px",
+        fontWeight: "400",
+      },
+      headlinePlus: {
+        fontSize: "48px",
+        fontWeight: "700",
+      },
     },
     label: {
       mini: {
