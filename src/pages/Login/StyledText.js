@@ -1,23 +1,31 @@
 import styled from "@emotion/styled";
+import setFont from "../../utility/setFont";
 
 const StyledTagline = styled.h1`
-  font-size: 48px;
-  color: ${({ theme: { colors } }) => colors.complimentary};
-  text-align: center;
+  ${({
+    theme: {
+      typo: {
+        para: { regular },
+      },
+    },
+  }) => setFont(regular.fontSize, regular.fontWeight, regular.lineHeight)};
+
+  color: ${({ theme: { colors } }) => colors.lightGrey};
 `;
 
 const StyledHeading = styled.h1`
   margin-bottom: 50px;
-  text-align: center;
-  color: ${({ theme: { colors } }) => colors.textPrimary};
+  color: ${({ theme: { colors } }) => colors.background};
 
   ${({
     theme: {
-      typo: { title },
+      typo: {
+        title: { largePlus },
+      },
     },
-  }) =>
-    ` font-size: ${title.headlinePlus.fontSize}; 
-      font-weight: ${title.headlinePlus.fontWeight}`}
+  }) => setFont(largePlus.fontSize, largePlus.fontWeight)}
 `;
+
+const StyledFooter = styled.p``;
 
 export { StyledTagline, StyledHeading };

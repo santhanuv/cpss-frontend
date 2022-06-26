@@ -1,14 +1,17 @@
 import styled from "@emotion/styled";
 
 const StyledLeftLayout = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 60px;
+  background-color: ${({ theme: { colors } }) => colors.primary};
+  border-radius: 10px 0 0 10px;
+  padding: 50px;
+  width: 42%;
+  ${/* For Desktop */ 1 && ""};
+  min-width: 42%;
 `;
 const StyledRightLayout = styled.div`
-  flex-basis: 50%;
+  padding: 50px;
+  border-radius: 0 10px 10px 0px;
+  flex: 1;
 `;
 
 export { StyledLeftLayout, StyledRightLayout };

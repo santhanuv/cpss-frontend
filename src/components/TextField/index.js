@@ -30,7 +30,7 @@ const TextField = ({
         name={name}
         id={inputID}
       />
-      {errorState && (
+      {errorMsg && (
         <StyledErrorText>
           <StyledErrorIcon>
             <MdError />

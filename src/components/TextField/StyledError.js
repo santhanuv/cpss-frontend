@@ -7,6 +7,7 @@ const StyledErrorIcon = styled.span`
 
 const StyledErrorText = styled.p`
   color: ${({ theme }) => theme.colors.error};
+  margin: 12px 0px;
   display: flex;
   align-items: center;
   gap: 5px;

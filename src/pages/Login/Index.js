@@ -1,18 +1,19 @@
 import React, { useState } from "react";
 import TextField from "../../components/TextField";
 import Button from "../../components/Button";
+import GoogleButton from "./GoogleButton";
+import Seperator from "./Seperator";
 import Link from "../../components/Link";
 import { StyledTagline, StyledHeading } from "./StyledText";
 import Navbar from "../../components/Navbar";
-import StyledImg from "./StyledImage";
-import Card from "../../components/Card";
 import { StyledLeftLayout, StyledRightLayout } from "./StyledLayout";
-import { Wrapper, ContentWrapper } from "./Wrapper";
+import Wrapper from "../../components/Wrapper";
+import { LoginCard, ContentWrapper } from "./Wrapper";
 import { ForgotSection } from "./Section";
-import { default as graduation } from "../../assets/images/graduation.svg";
 
 const Login = () => {
   const [formData, setFormData] = useState({ email: "", password: "" });
+  const [errors, setErrors] = useState({ email: "", password: "" });
 
   const handleInputchange = (e) => {
     const inputName = e.currentTarget.name;
@@ -46,19 +47,24 @@ const Login = () => {
     <Wrapper>
       <Navbar links={linksList} />
       <ContentWrapper>
-        <StyledLeftLayout>
-          <StyledTagline>
-            Welcome to Saintgits Placement Support System
-          </StyledTagline>
-          <StyledImg src={graduation} alt="graduation-image" />
-        </StyledLeftLayout>
-        <StyledRightLayout>
-          <Card>
+        <LoginCard>
+          <StyledLeftLayout>
             <StyledHeading>Login</StyledHeading>
+            <StyledTagline>Welcome back!</StyledTagline>
+            <br />
+            <StyledTagline>
+              By logging in, you agress to our{" "}
+              <Link isLight={true}>Terms of Use</Link> and{" "}
+              <Link isLight={true}> Privacy Policy.</Link>
+            </StyledTagline>
+          </StyledLeftLayout>
+          <StyledRightLayout>
+            <GoogleButton />
+            <Seperator />
             <TextField
               label="Email"
               type="email"
-              errorMsg="Invalid Email Address"
+              errorMsg={errors.email}
               errorState={true}
               isRequired={true}
               value={formData.email}
@@ -67,7 +73,7 @@ const Login = () => {
             />
             <TextField
               label="Password"
-              errorMsg="Invalid Password"
+              errorMsg={errors.password}
               type="password"
               errorState={true}
               isRequired={true}
@@ -75,12 +81,12 @@ const Login = () => {
               onChange={handleInputchange}
               name="password"
             />
-            <ForgotSection style={{ marginBottom: "50px", display: "flex" }}>
+            <ForgotSection>
               <Link text="Forgot Password ?" />
             </ForgotSection>
-            <Button />
-          </Card>
-        </StyledRightLayout>
+            <Button text="Login" />
+          </StyledRightLayout>
+        </LoginCard>
       </ContentWrapper>
     </Wrapper>
   );

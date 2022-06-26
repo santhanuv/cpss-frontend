@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 
 const StyledLabel = styled.label`
   display: block;
-  margin-bottom: 16px;
+  margin-bottom: 12px;
   ${({
     theme: {
       typo: { label },

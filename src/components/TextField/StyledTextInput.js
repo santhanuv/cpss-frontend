@@ -2,7 +2,6 @@ import styled from "@emotion/styled";
 
 const StyledTextInput = styled.input`
   width: 100%;
-  margin-bottom: 16px;
   border: ${({ theme }) => `1px solid ${theme.colors.textPrimary}`};
   border-radius: 4px;
   padding: 8px 16px;

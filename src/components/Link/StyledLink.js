@@ -2,9 +2,8 @@ import styled from "@emotion/styled";
 
 const StyledLink = styled.a`
   color: ${({ theme: { colors } }) => colors.textPrimary};
-  margin-bottom: 10px;
-  display: block;
   text-decoration: none;
+  text-underline-offset: 8px;
 
   ${({
     theme: {
@@ -15,7 +14,6 @@ const StyledLink = styled.a`
 
   &:hover {
     text-decoration: underline;
-    text-underline-offset: 8px;
     color: ${({ theme: { colors } }) => colors.complimentary};
   }
 `;

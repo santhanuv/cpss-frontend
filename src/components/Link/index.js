@@ -1,8 +1,12 @@
-import React from "react";
 import StyledLink from "./StyledLink";
+import StyledLightLink from "./StyledLightLink";
 
-const Link = ({ text = "Link", to = "#" }) => {
-  return <StyledLink href={to}>{text}</StyledLink>;
+const Link = ({ text = "", to = "#", children, isLight }) => {
+  return isLight ? (
+    <StyledLightLink href={to}>{text || children}</StyledLightLink>
+  ) : (
+    <StyledLink href={to}>{text || children}</StyledLink>
+  );
 };
 
 export default Link;
