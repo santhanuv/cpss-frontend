@@ -1,9 +1,5 @@
 import styled from "@emotion/styled";
 
-const styleActiveItem = (isActive, color) => {
-  return isActive && `color: ${color}`;
-};
-
 const StyledNav = styled.nav`
   display: flex;
   justify-content: space-between;
@@ -22,13 +18,13 @@ const StyledListItem = styled.li``;
 const StyledActive = styled.span`
   color: ${({ theme: { colors } }) => colors.complimentary};
   text-decoration: underline;
-  text-underline-offset: 8px;
+  text-underline-offset: 6px;
   ${({
     theme: {
       typo: { label },
     },
   }) =>
-    `font-size: ${label.miniPlus.fontSize}; font-weight: ${label.miniPlus.fontWeight}`};
+    `font-size: ${label.smallPlus.fontSize}; font-weight: ${label.smallPlus.fontWeight}`};
 `;
 
 export { StyledNav, StyledNavList, StyledListItem, StyledActive };

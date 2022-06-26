@@ -13,10 +13,11 @@ const LoginCard = styled(Card)`
 `;
 
 const ContentWrapper = styled.div`
-  flex: 1;
+  flex: 0;
+  margin-top: 5%;
   display: flex;
   justify-content: center;
-  align-items: center;
+  /* align-items: center; */
 `;
 
 export { LoginCard, ContentWrapper };

@@ -5,6 +5,11 @@ const StyledButton = styled.button`
   border: none;
   border-radius: 4px;
   padding: 8px 36px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
 
   width: ${({ width }) => width};
 

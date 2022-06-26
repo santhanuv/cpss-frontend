@@ -13,94 +13,94 @@ const theme = {
   typo: {
     title: {
       small: {
-        fontSize: "28px",
+        fontSize: "22px",
         fontWeight: "400",
       },
       smallPlus: {
-        fontSize: "28px",
+        fontSize: "22px",
         fontWeight: "600",
       },
       large: {
-        fontSize: "40px",
+        fontSize: "36px",
         fontWeight: "400",
       },
       largePlus: {
-        fontSize: "40px",
+        fontSize: "36px",
         fontWeight: "700",
       },
       headline: {
-        fontSize: "48px",
+        fontSize: "44px",
         fontWeight: "400",
       },
       headlinePlus: {
-        fontSize: "48px",
+        fontSize: "44px",
         fontWeight: "700",
       },
     },
     label: {
       mini: {
-        fontSize: "20px",
+        fontSize: "14px",
         fontWeight: "400",
       },
       miniPlus: {
-        fontSize: "20px",
+        fontSize: "14px",
         fontWeight: "500",
       },
       small: {
-        fontSize: "22px",
+        fontSize: "16px",
         fontWeight: "400",
       },
       smallPlus: {
-        fontSize: "22px",
+        fontSize: "16px",
         fontWeight: "500",
       },
       regular: {
-        fontSize: "24px",
+        fontSize: "18px",
         fontWeight: "400",
       },
       regularPlus: {
-        fontSize: "24px",
+        fontSize: "18px",
         fontWeight: "500",
       },
       large: {
-        fontSize: "26px",
+        fontSize: "20px",
         fontWeight: "500",
       },
       largePlus: {
-        fontSize: "26px",
+        fontSize: "20px",
         fontWeight: "500",
       },
     },
     para: {
       mini: {
-        fontSize: "16px",
+        fontSize: "12px",
         fontWeight: "400",
-        lineHeight: "25px",
+        lineHeight: "18.6px",
       },
       miniPlus: {
-        fontSize: "16px",
+        fontSize: "12px",
         fontWeight: "500",
-        lineHeight: "25px",
+        lineHeight: "18.6px",
       },
       regular: {
-        fontSize: "20px",
+        fontSize: "16px",
         fontWeight: "400",
-        lineHeight: "28px",
+        lineHeight: "24.8px",
       },
       regularPlus: {
-        fontSize: "20px",
+        fontSize: "16px",
         fontWeight: "500",
-        lineHeight: "28px",
+        lineHeight: "24.8px",
       },
       large: {
-        fontSize: "24px",
+        fontSize: "18px",
         fontWeight: "400",
-        lineHeight: "37.2px",
+        lineHeight: "27.9px",
       },
       largePlus: {
-        fontSize: "24px",
+        fontSize: "18px",
         fontWeight: "500",
-        lineHeight: "37.2px",
+        lineHeight: "27.9px",
       },
     },
   },

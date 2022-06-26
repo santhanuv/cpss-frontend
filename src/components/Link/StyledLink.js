@@ -3,14 +3,14 @@ import styled from "@emotion/styled";
 const StyledLink = styled.a`
   color: ${({ theme: { colors } }) => colors.textPrimary};
   text-decoration: none;
-  text-underline-offset: 8px;
+  text-underline-offset: 6px;
 
   ${({
     theme: {
       typo: { label },
     },
   }) =>
-    `font-size: ${label.mini.fontSize}; font-weight: ${label.mini.fontWeight}`};
+    `font-size: ${label.smallPlus.fontSize}; font-weight: ${label.smallPlus.fontWeight}`};
 
   &:hover {
     text-decoration: underline;

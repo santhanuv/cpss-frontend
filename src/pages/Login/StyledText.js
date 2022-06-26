@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import setFont from "../../utility/setFont";
 
-const StyledTagline = styled.h1`
+const StyledTagline = styled.p`
   ${({
     theme: {
       typo: {
@@ -14,7 +14,7 @@ const StyledTagline = styled.h1`
 `;
 
 const StyledHeading = styled.h1`
-  margin-bottom: 50px;
+  margin-bottom: 16px;
   color: ${({ theme: { colors } }) => colors.background};
 
   ${({

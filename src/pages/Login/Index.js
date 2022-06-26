@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import TextField from "../../components/TextField";
 import Button from "../../components/Button";
-import GoogleButton from "./GoogleButton";
+import GoogleButton from "../../components/Button/GoogleButton";
 import Seperator from "./Seperator";
 import Link from "../../components/Link";
 import { StyledTagline, StyledHeading } from "./StyledText";
@@ -59,7 +59,7 @@ const Login = () => {
             </StyledTagline>
           </StyledLeftLayout>
           <StyledRightLayout>
-            <GoogleButton />
+            <Button varient="google" />
             <Seperator />
             <TextField
               label="Email"

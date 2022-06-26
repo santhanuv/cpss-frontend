@@ -16,13 +16,13 @@ const StyledTextInput = styled.input`
   ${({
     theme: {
       typo: {
-        para: { mini },
+        para: { regular },
       },
     },
   }) => `
-    font-size: ${mini.fontSize};
-    line-height: ${mini.lineHeight};
-    font-weight: ${mini.fontWeight};
+    font-size: ${regular.fontSize};
+    line-height: ${regular.lineHeight};
+    font-weight: ${regular.fontWeight};
   `}
 `;
 
