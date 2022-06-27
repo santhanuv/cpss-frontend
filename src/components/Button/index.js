@@ -7,13 +7,7 @@ import {
 
 import React from "react";
 
-const Button = ({
-  width = "100%",
-  onClick,
-  text = "Button",
-  varient,
-  icon,
-}) => {
+const Button = ({ width = "100%", onClick, text = "", varient, icon }) => {
   return varient !== "google" ? (
     <StyledButton width={width} onClick={onClick}>
       {icon && <span>{icon}</span>}

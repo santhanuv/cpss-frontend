@@ -4,7 +4,7 @@ import setFont from "../../utility/setFont";
 const StyledButton = styled.button`
   border: none;
   border-radius: 4px;
-  padding: 8px 36px;
+  padding: 8px 26px;
   display: flex;
   justify-content: center;
   align-items: center;

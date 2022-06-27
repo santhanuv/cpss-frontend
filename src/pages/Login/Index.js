@@ -53,8 +53,9 @@ const Login = () => {
             <StyledTagline>Welcome back!</StyledTagline>
             <br />
             <StyledTagline>
-              By logging in, you agress to our{" "}
-              <Link isLight={true}>Terms of Use</Link> and{" "}
+              By logging in, you agree to our
+              <br />
+              <Link isLight={true}>Terms of Use</Link> and
               <Link isLight={true}> Privacy Policy.</Link>
             </StyledTagline>
           </StyledLeftLayout>

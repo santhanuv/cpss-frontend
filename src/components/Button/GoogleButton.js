@@ -14,6 +14,10 @@ const StyledGoogleButton = styled(StyledButton)`
   &:focus {
     border: ${({ theme: { colors } }) => `1px solid ${colors.complimentary}`};
   }
+
+  @media (max-width: 369px) {
+    padding: 8px;
+  }
 `;
 
 const StyledGoogleIcon = styled(GoogleIcon)`

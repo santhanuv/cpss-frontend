@@ -2,6 +2,8 @@ import styled from "@emotion/styled";
 import setFont from "../../utility/setFont";
 
 const StyledTagline = styled.p`
+  text-align: center;
+
   ${({
     theme: {
       typo: {
@@ -11,6 +13,9 @@ const StyledTagline = styled.p`
   }) => setFont(regular.fontSize, regular.fontWeight, regular.lineHeight)};
 
   color: ${({ theme: { colors } }) => colors.lightGrey};
+
+  @media (max-width: 1023px) {
+  }
 `;
 
 const StyledHeading = styled.h1`
@@ -25,7 +30,5 @@ const StyledHeading = styled.h1`
     },
   }) => setFont(largePlus.fontSize, largePlus.fontWeight)}
 `;
-
-const StyledFooter = styled.p``;
 
 export { StyledTagline, StyledHeading };
