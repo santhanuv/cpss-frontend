@@ -1,15 +1,5 @@
 import styled from "@emotion/styled";
 
-const StyledLogo = styled.div`
-  font-size: ${({
-    theme: {
-      typo: {
-        title: { small },
-      },
-    },
-  }) => small.fontSize};
-`;
-
 const StyledNav = styled.nav`
   display: flex;
   justify-content: space-between;
@@ -42,4 +32,4 @@ const StyledActive = styled.span`
     `font-size: ${label.smallPlus.fontSize}; font-weight: ${label.smallPlus.fontWeight}`};
 `;
 
-export { StyledNav, StyledNavList, StyledListItem, StyledActive, StyledLogo };
+export { StyledNav, StyledNavList, StyledListItem, StyledActive };

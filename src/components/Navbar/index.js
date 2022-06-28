@@ -6,8 +6,8 @@ import {
   StyledNavList,
   StyledListItem,
   StyledActive,
-  StyledLogo,
 } from "./StyledNav";
+import Logo from "../Logo";
 import Link from "../Link";
 
 const OPEN_BTN_ID = "open_btn";
@@ -47,7 +47,7 @@ const Navbar = ({ links }) => {
         />
       )}
       <StyledNavList>
-        <StyledLogo>Logo</StyledLogo>
+        <Logo />
       </StyledNavList>
       <StyledNavList>
         <StyledNavButton

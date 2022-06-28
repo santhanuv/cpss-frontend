@@ -5,9 +5,10 @@ import {
   StyledList,
   StyledListItem,
 } from "./StyledMenu";
-import { StyledLogo, StyledActive } from "../StyledNav";
+import { StyledActive } from "../StyledNav";
 import { StyledCloseIcon, StyledNavButton } from "../NavButton";
 import Link from "../../Link";
+import Logo from "../../Logo";
 
 const MobileMenu = ({
   links,
@@ -19,7 +20,7 @@ const MobileMenu = ({
   return (
     <StyledMenu>
       <StyledTopSection>
-        <StyledLogo>Logo</StyledLogo>
+        <Logo />
         <StyledNavButton>
           <StyledCloseIcon
             id={CLOSE_BTN_ID}
