@@ -4,7 +4,7 @@ const StyledSeperator = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  color: grey;
+  color: ${({ theme: { colors } }) => colors.textPrimary};
   margin: 16px 0;
 
   &::before {
