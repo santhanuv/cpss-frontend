@@ -9,6 +9,7 @@ const theme = {
     background: "#F7F8F8",
     textPrimary: "#071125",
     error: "#D10F0F",
+    tableRowGrey: "#E7E7E7",
   },
   typo: {
     title: {
