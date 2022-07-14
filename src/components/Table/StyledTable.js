@@ -3,7 +3,6 @@ import styled from "@emotion/styled";
 const TableWrapper = styled.div`
   overflow: auto;
   width: 90%;
-  padding: 10px;
 `;
 
 const StyledTable = styled.table`

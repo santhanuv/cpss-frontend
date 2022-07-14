@@ -10,16 +10,49 @@ import { StyledLeftLayout, StyledRightLayout } from "./StyledLayout";
 import Wrapper from "../../components/Wrapper";
 import { LoginCard, ContentWrapper } from "./Wrapper";
 import { ForgotSection } from "./Section";
+import useForm from "../../hooks/useForm";
+import { createSession } from "../../api/session";
+import useAuth from "../../hooks/useAuth";
+import { useNavigate, useLocation } from "react-router-dom";
+
+const initForm = {
+  email: "",
+  password: "",
+};
 
 const Login = () => {
+  const { auth, setAuth } = useAuth();
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const from = location?.state?.from?.pathname;
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [errors, setErrors] = useState({ email: "", password: "" });
+
+  const { onSubmit, onChange, register } = useForm(initForm);
 
   const handleInputchange = (e) => {
     const inputName = e.currentTarget.name;
     const inputValue = e.currentTarget.value;
 
     setFormData({ ...formData, [inputName]: inputValue });
+  };
+
+  const doAuth = async (data) => {
+    const response = await createSession(data);
+    if (response.data) {
+      const authData = {
+        accessToken: response.data?.accessToken,
+        role: response.data?.role,
+      };
+      setAuth(authData);
+      const to = authData.role ? `/dashboard/${authData.role}` : `/error`;
+      navigate(from || to, { replace: true });
+      return true;
+    } else {
+      console.error(response.err);
+      return false;
+    }
   };
 
   const linksList = [
@@ -62,30 +95,28 @@ const Login = () => {
           <StyledRightLayout>
             <Button varient="google" />
             <Seperator />
-            <TextField
-              label="Email"
-              type="email"
-              errorMsg={errors.email}
-              errorState={true}
-              isRequired={true}
-              value={formData.email}
-              name="email"
-              onChange={handleInputchange}
-            />
-            <TextField
-              label="Password"
-              errorMsg={errors.password}
-              type="password"
-              errorState={true}
-              isRequired={true}
-              value={formData.password}
-              onChange={handleInputchange}
-              name="password"
-            />
-            <ForgotSection>
-              <Link text="Forgot Password ?" />
-            </ForgotSection>
-            <Button text="Login" />
+            <form onSubmit={(e) => onSubmit(e, doAuth)}>
+              <TextField
+                label="Email"
+                type="email"
+                errorMsg={errors.email}
+                errorState={true}
+                isRequired={true}
+                {...register("email")}
+              />
+              <TextField
+                label="Password"
+                errorMsg={errors.password}
+                type="password"
+                errorState={true}
+                isRequired={true}
+                {...register("password")}
+              />
+              <ForgotSection>
+                <Link text="Forgot Password ?" />
+              </ForgotSection>
+              <Button text="Login" />
+            </form>
           </StyledRightLayout>
         </LoginCard>
       </ContentWrapper>

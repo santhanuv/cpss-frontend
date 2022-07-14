@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
-import { GoTriangleDown } from "react-icons/go";
+import { GoTriangleDown, GoTriangleUp } from "react-icons/go";
 
-const StyledIcon = styled(GoTriangleDown)`
+const StyledIconDown = styled(GoTriangleDown)`
   font-size: 16px;
   color: ${({
     theme: {
@@ -10,4 +10,13 @@ const StyledIcon = styled(GoTriangleDown)`
   }) => primary};
 `;
 
-export default StyledIcon;
+const StyledIconUp = styled(GoTriangleUp)`
+  font-size: 16px;
+  color: ${({
+    theme: {
+      colors: { primary },
+    },
+  }) => primary};
+`;
+
+export { StyledIconDown, StyledIconUp };

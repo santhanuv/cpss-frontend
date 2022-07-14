@@ -1,3 +1,5 @@
+import React from "react";
+import Styles from "./Home.Styled";
 import Table from "../../../components/Table";
 
 const headCols = ["#", "Field", "New", "Old", "Updated On", "Status"];
@@ -7,12 +9,13 @@ const data = [
   ["2", "First Name", "Shoun", "Shawn", "12-08-2001", "Approved"],
 ];
 
-const StudentDashboard = () => {
+const Home = () => {
   return (
-    <div>
+    <Styles>
+      <h1>Approval Status</h1>
       <Table colNames={headCols} data={data} />
-    </div>
+    </Styles>
   );
 };
 
-export default StudentDashboard;
+export default Home;
