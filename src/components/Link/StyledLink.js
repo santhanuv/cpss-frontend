@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
+import { Link } from "react-router-dom";
 
-const StyledLink = styled.a`
+const StyledLink = styled(Link)`
   color: ${({ theme: { colors } }) => colors.textPrimary};
   text-decoration: none;
   text-underline-offset: 6px;

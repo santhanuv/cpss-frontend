@@ -3,7 +3,10 @@ import Sidebar from "../../components/Sidebar";
 import { StyledWrapper, ContentWrapper } from "./StyledWrapper";
 import { StyledTopSection } from "./StyledUserDashboard";
 import { MdHome } from "react-icons/md";
+import { BiExport } from "react-icons/bi";
 import { FaUserGraduate } from "react-icons/fa";
+import { FaUserCheck } from "react-icons/fa";
+import { FaUserPlus } from "react-icons/fa";
 import StudentDashboard from "../StudentDashboard";
 import Avatar from "../../components/Avatar";
 import { Outlet, useLocation } from "react-router-dom";
@@ -34,14 +37,48 @@ const UserDashboard = () => {
         isActive: false,
       },
     ],
+    advisor: [
+      {
+        name: "Home",
+        icon: <MdHome />,
+        to: "/dashboard/advisor",
+        isActive: false,
+      },
+      {
+        name: "Verify Students",
+        icon: <FaUserCheck />,
+        to: "/dashboard/advisor/verify",
+        isActive: false,
+      },
+    ],
+    admin: [
+      {
+        name: "Home",
+        icon: <MdHome />,
+        to: "/dashboard/admin",
+        isActive: false,
+      },
+      {
+        name: "New Advisors",
+        icon: <FaUserPlus />,
+        to: "/dashboard/admin/new-advisors",
+        isActive: false,
+      },
+      {
+        name: "Export Data",
+        icon: <BiExport />,
+        to: "/dashboard/admin/export",
+        isActive: false,
+      },
+    ],
   };
 
   const activeLinkName = findAndSetActiveLink(
-    sidebarLinks.student,
+    sidebarLinks[auth.role || "student"],
     location.pathname
   );
 
-  const selectedSidebar = sidebarLinks[auth.role];
+  const selectedSidebar = sidebarLinks[auth.role || "student"];
 
   return (
     <StyledWrapper>

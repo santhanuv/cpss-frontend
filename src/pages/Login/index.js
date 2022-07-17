@@ -31,13 +31,6 @@ const Login = () => {
 
   const { onSubmit, onChange, register } = useForm(initForm);
 
-  const handleInputchange = (e) => {
-    const inputName = e.currentTarget.name;
-    const inputValue = e.currentTarget.value;
-
-    setFormData({ ...formData, [inputName]: inputValue });
-  };
-
   const doAuth = async (data) => {
     const response = await createSession(data);
     if (response.data) {
@@ -63,16 +56,22 @@ const Login = () => {
       id: "1",
     },
     {
+      name: "Register",
+      to: "/register",
+      isActive: false,
+      id: "2",
+    },
+    {
       name: "Contact us",
       to: "#",
       isActive: false,
-      id: "2",
+      id: "3",
     },
     {
       name: "About us",
       to: "#",
       isActive: false,
-      id: "3",
+      id: "4",
     },
   ];
 

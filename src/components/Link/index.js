@@ -3,9 +3,9 @@ import StyledLightLink from "./StyledLightLink";
 
 const Link = ({ text = "", to = "#", children, isLight }) => {
   return isLight ? (
-    <StyledLightLink href={to}>{text || children}</StyledLightLink>
+    <StyledLightLink to={to}>{text || children}</StyledLightLink>
   ) : (
-    <StyledLink href={to}>{text || children}</StyledLink>
+    <StyledLink to={to}>{text || children}</StyledLink>
   );
 };
 

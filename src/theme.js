@@ -10,6 +10,7 @@ const theme = {
     textPrimary: "#071125",
     error: "#D10F0F",
     tableRowGrey: "#E7E7E7",
+    hoverGrey: "#f0f0f0",
   },
   typo: {
     title: {
@@ -20,6 +21,14 @@ const theme = {
       smallPlus: {
         fontSize: "22px",
         fontWeight: "600",
+      },
+      regular: {
+        fontSize: "24px",
+        fontWeight: "400",
+      },
+      regularPlus: {
+        fontSize: "24px",
+        fontWeight: "700",
       },
       large: {
         fontSize: "36px",

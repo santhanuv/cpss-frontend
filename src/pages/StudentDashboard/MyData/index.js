@@ -26,6 +26,18 @@ const acadamicData = addEditIcon([
   ["2", "backlogs", "0", "12-08-2001"],
 ]);
 
+const data = [
+  {
+    "First Name": "Student",
+    "Last Name": "One",
+    Email: "studentone@saitgits.org",
+    DOB: "15-11-2001",
+    Phone: "0123456789",
+    Gender: "Male",
+    Address: "housename(H), myplace, city, state, code",
+  },
+];
+
 const MyData = () => {
   const [selectorState, setSelectorState] = useState(0);
 
@@ -60,13 +72,229 @@ const MyData = () => {
       <div className="content">
         {selectorState === 0 ? (
           <>
-            <h1>Personal Information</h1>
-            <Table colNames={headCols} data={personalData} />
+            <h2>Basic Info</h2>
+            <div className="info-card">
+              <div className="info">
+                <h4>First Name</h4>
+                <h4>Student</h4>
+                <span className="icon-box">
+                  <MdEdit className="icon" />
+                </span>
+              </div>
+              <div className="info">
+                <h4>Last Name</h4>
+                <h4>One</h4>
+                <span className="icon-box">
+                  <MdEdit className="icon" />
+                </span>
+              </div>
+              <div className="info">
+                <h4>Email</h4>
+                <h4>studentOne@saintgits.org</h4>
+                <span className="icon-box">
+                  <MdEdit className="icon" />
+                </span>
+              </div>
+              <div className="info">
+                <h4>DOB</h4>
+                <h4>15-11-2001</h4>
+                <span className="icon-box">
+                  <MdEdit className="icon" />
+                </span>
+              </div>
+              <div className="info">
+                <h4>Gender</h4>
+                <h4>Male</h4>
+                <span className="icon-box">
+                  <MdEdit className="icon" />
+                </span>
+              </div>
+              <div className="info">
+                <h4>Phone</h4>
+                <h4>0123456789</h4>
+                <span className="icon-box">
+                  <MdEdit className="icon" />
+                </span>
+              </div>
+              <div className="info" id="last">
+                <h4>Address</h4>
+                <h4>
+                  Housename(H), Placename
+                  <br />
+                  City,State,Code
+                </h4>
+                <span className="icon-box">
+                  <MdEdit className="icon" />
+                </span>
+              </div>
+            </div>
+
+            <h2>Student Info</h2>
+            <div className="info-card">
+              <div className="info">
+                <h4>Register NO</h4>
+                <h4>MGP19CS123</h4>
+                <span className="icon-box">
+                  <MdEdit className="icon" />
+                </span>
+              </div>
+              <div className="info">
+                <h4>Admission NO</h4>
+                <h4>CS-19-544</h4>
+                <span className="icon-box">
+                  <MdEdit className="icon" />
+                </span>
+              </div>
+              <div className="info">
+                <h4>Batch</h4>
+                <h4>19-23</h4>
+                <span className="icon-box">
+                  <MdEdit className="icon" />
+                </span>
+              </div>
+              <div className="info">
+                <h4>Branch</h4>
+                <h4>CSE</h4>
+                <span className="icon-box">
+                  <MdEdit className="icon" />
+                </span>
+              </div>
+              <div className="info">
+                <h4>10th School</h4>
+                <h4>Crossroads Higher Secondary School Pampady</h4>
+                <span className="icon-box">
+                  <MdEdit className="icon" />
+                </span>
+              </div>
+              <div className="info">
+                <h4>10th Percentage</h4>
+                <h4>86.85%</h4>
+                <span className="icon-box">
+                  <MdEdit className="icon" />
+                </span>
+              </div>
+              <div className="info">
+                <h4>12th School</h4>
+                <h4>Crossroads Higher Secondary School Pampady</h4>
+                <span className="icon-box">
+                  <MdEdit className="icon" />
+                </span>
+              </div>
+              <div className="info" id="last">
+                <h4>12th Percentage</h4>
+                <h4>86.85%</h4>
+                <span className="icon-box">
+                  <MdEdit className="icon" />
+                </span>
+              </div>
+            </div>
           </>
         ) : (
           <>
-            <h1>Academic Information</h1>
-            <Table colNames={headCols} data={acadamicData} />
+            <h2>Semester Grades</h2>
+            <div className="info-card">
+              <div className="info">
+                <h4>S1 SGPA</h4>
+                <h4>7.75</h4>
+                <span className="icon-box">
+                  <MdEdit className="icon" />
+                </span>
+              </div>
+              <div className="info">
+                <h4>S2 SGPA</h4>
+                <h4>8.5</h4>
+                <span className="icon-box">
+                  <MdEdit className="icon" />
+                </span>
+              </div>
+              <div className="info">
+                <h4>S3 SGPA</h4>
+                <h4>9.5</h4>
+                <span className="icon-box">
+                  <MdEdit className="icon" />
+                </span>
+              </div>
+              <div className="info">
+                <h4>S4 SGPA</h4>
+                <h4>7.85</h4>
+                <span className="icon-box">
+                  <MdEdit className="icon" />
+                </span>
+              </div>
+              <div className="info">
+                <h4>S5 SGPA</h4>
+                <h4>8.72</h4>
+                <span className="icon-box">
+                  <MdEdit className="icon" />
+                </span>
+              </div>
+              <div className="info">
+                <h4>S6 SGPA</h4>
+                <h4>9.56</h4>
+                <span className="icon-box">
+                  <MdEdit className="icon" />
+                </span>
+              </div>
+              <div className="info">
+                <h4>S7 SGPA</h4>
+                <h4>9.05</h4>
+                <span className="icon-box">
+                  <MdEdit className="icon" />
+                </span>
+              </div>
+              <div className="info">
+                <h4>S8 SGPA</h4>
+                <h4>9.57</h4>
+                <span className="icon-box">
+                  <MdEdit className="icon" />
+                </span>
+              </div>
+              <div className="info" id="last">
+                <h4>CGPA</h4>
+                <h4>9.5</h4>
+                <span className="icon-box">
+                  <MdEdit className="icon" />
+                </span>
+              </div>
+            </div>
+            <h2>Backlog Info</h2>
+            <div className="info-card">
+              <div className="info">
+                <h4>Current Backlogs</h4>
+                <h4>0</h4>
+                <span className="icon-box">
+                  <MdEdit className="icon" />
+                </span>
+              </div>
+              <div className="info" id="last">
+                <h4>Backlog History</h4>
+                <h4>0</h4>
+                <span className="icon-box">
+                  <MdEdit className="icon" />
+                </span>
+              </div>
+            </div>
+            <h2>Skill Set</h2>
+            <div className="info-card">
+              <div className="info">
+                <h4>C Programming</h4>
+                <span className="icon-box">
+                  <MdEdit className="icon" />
+                </span>
+              </div>
+              <div className="info">
+                <h4>MERN Stack</h4>
+                <span className="icon-box">
+                  <MdEdit className="icon" />
+                </span>
+              </div>
+              <div className="info" id="last">
+                <h4>Python</h4>
+                <span className="icon-box">
+                  <MdEdit className="icon" />
+                </span>
+              </div>
+            </div>
           </>
         )}
       </div>
