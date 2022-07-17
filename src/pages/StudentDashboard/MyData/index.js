@@ -38,6 +38,10 @@ const data = [
   },
 ];
 
+const handleEdit = (e) => {
+  console.log(e.currentTarget.id);
+};
+
 const MyData = () => {
   const [selectorState, setSelectorState] = useState(0);
 
@@ -74,49 +78,49 @@ const MyData = () => {
           <>
             <h2>Basic Info</h2>
             <div className="info-card">
-              <div className="info">
+              <div className="info" onClick={handleEdit} id="firstName">
                 <h4>First Name</h4>
                 <h4>Student</h4>
                 <span className="icon-box">
                   <MdEdit className="icon" />
                 </span>
               </div>
-              <div className="info">
+              <div className="info" id="lastName" onClick={handleEdit}>
                 <h4>Last Name</h4>
                 <h4>One</h4>
                 <span className="icon-box">
                   <MdEdit className="icon" />
                 </span>
               </div>
-              <div className="info">
+              <div className="info" id="email" onClick={handleEdit}>
                 <h4>Email</h4>
                 <h4>studentOne@saintgits.org</h4>
                 <span className="icon-box">
                   <MdEdit className="icon" />
                 </span>
               </div>
-              <div className="info">
+              <div className="info" id="dob" onClick={handleEdit}>
                 <h4>DOB</h4>
                 <h4>15-11-2001</h4>
                 <span className="icon-box">
                   <MdEdit className="icon" />
                 </span>
               </div>
-              <div className="info">
+              <div className="info" id="gender" onClick={handleEdit}>
                 <h4>Gender</h4>
                 <h4>Male</h4>
                 <span className="icon-box">
                   <MdEdit className="icon" />
                 </span>
               </div>
-              <div className="info">
+              <div className="info" id="phone" onClick={handleEdit}>
                 <h4>Phone</h4>
                 <h4>0123456789</h4>
                 <span className="icon-box">
                   <MdEdit className="icon" />
                 </span>
               </div>
-              <div className="info" id="last">
+              <div className="info last" id="address" onClick={handleEdit}>
                 <h4>Address</h4>
                 <h4>
                   Housename(H), Placename
@@ -131,56 +135,60 @@ const MyData = () => {
 
             <h2>Student Info</h2>
             <div className="info-card">
-              <div className="info">
+              <div className="info" id="registerNO" onClick={handleEdit}>
                 <h4>Register NO</h4>
                 <h4>MGP19CS123</h4>
                 <span className="icon-box">
                   <MdEdit className="icon" />
                 </span>
               </div>
-              <div className="info">
+              <div className="info" id="admissionNO" onClick={handleEdit}>
                 <h4>Admission NO</h4>
                 <h4>CS-19-544</h4>
                 <span className="icon-box">
                   <MdEdit className="icon" />
                 </span>
               </div>
-              <div className="info">
+              <div className="info" id="batch" onClick={handleEdit}>
                 <h4>Batch</h4>
                 <h4>19-23</h4>
                 <span className="icon-box">
                   <MdEdit className="icon" />
                 </span>
               </div>
-              <div className="info">
+              <div className="info" id="branch" onClick={handleEdit}>
                 <h4>Branch</h4>
                 <h4>CSE</h4>
                 <span className="icon-box">
                   <MdEdit className="icon" />
                 </span>
               </div>
-              <div className="info">
+              <div className="info" id="tenthSchool" onClick={handleEdit}>
                 <h4>10th School</h4>
                 <h4>Crossroads Higher Secondary School Pampady</h4>
                 <span className="icon-box">
                   <MdEdit className="icon" />
                 </span>
               </div>
-              <div className="info">
+              <div className="info" id="tenthPercent" onClick={handleEdit}>
                 <h4>10th Percentage</h4>
                 <h4>86.85%</h4>
                 <span className="icon-box">
                   <MdEdit className="icon" />
                 </span>
               </div>
-              <div className="info">
+              <div className="info" id="twelthSchool" onClick={handleEdit}>
                 <h4>12th School</h4>
                 <h4>Crossroads Higher Secondary School Pampady</h4>
                 <span className="icon-box">
                   <MdEdit className="icon" />
                 </span>
               </div>
-              <div className="info" id="last">
+              <div
+                className="info last"
+                id="twelthPercent"
+                onClick={handleEdit}
+              >
                 <h4>12th Percentage</h4>
                 <h4>86.85%</h4>
                 <span className="icon-box">
@@ -193,63 +201,63 @@ const MyData = () => {
           <>
             <h2>Semester Grades</h2>
             <div className="info-card">
-              <div className="info">
+              <div className="info" id="s1Sgpa" onClick={handleEdit}>
                 <h4>S1 SGPA</h4>
                 <h4>7.75</h4>
                 <span className="icon-box">
                   <MdEdit className="icon" />
                 </span>
               </div>
-              <div className="info">
+              <div className="info" id="s2Sgpa" onClick={handleEdit}>
                 <h4>S2 SGPA</h4>
                 <h4>8.5</h4>
                 <span className="icon-box">
                   <MdEdit className="icon" />
                 </span>
               </div>
-              <div className="info">
+              <div className="info" id="s3Sgpa" onClick={handleEdit}>
                 <h4>S3 SGPA</h4>
                 <h4>9.5</h4>
                 <span className="icon-box">
                   <MdEdit className="icon" />
                 </span>
               </div>
-              <div className="info">
+              <div className="info" id="s4Sgpa" onClick={handleEdit}>
                 <h4>S4 SGPA</h4>
                 <h4>7.85</h4>
                 <span className="icon-box">
                   <MdEdit className="icon" />
                 </span>
               </div>
-              <div className="info">
+              <div className="info" id="s5Sgpa" onClick={handleEdit}>
                 <h4>S5 SGPA</h4>
                 <h4>8.72</h4>
                 <span className="icon-box">
                   <MdEdit className="icon" />
                 </span>
               </div>
-              <div className="info">
+              <div className="info" id="s6Sgpa" onClick={handleEdit}>
                 <h4>S6 SGPA</h4>
                 <h4>9.56</h4>
                 <span className="icon-box">
                   <MdEdit className="icon" />
                 </span>
               </div>
-              <div className="info">
+              <div className="info" id="s7Sgpa" onClick={handleEdit}>
                 <h4>S7 SGPA</h4>
                 <h4>9.05</h4>
                 <span className="icon-box">
                   <MdEdit className="icon" />
                 </span>
               </div>
-              <div className="info">
+              <div className="info" id="s8Sgpa" onClick={handleEdit}>
                 <h4>S8 SGPA</h4>
                 <h4>9.57</h4>
                 <span className="icon-box">
                   <MdEdit className="icon" />
                 </span>
               </div>
-              <div className="info" id="last">
+              <div className="info last" id="cgpa" onClick={handleEdit}>
                 <h4>CGPA</h4>
                 <h4>9.5</h4>
                 <span className="icon-box">
@@ -259,14 +267,18 @@ const MyData = () => {
             </div>
             <h2>Backlog Info</h2>
             <div className="info-card">
-              <div className="info">
+              <div className="info" id="currentBacklogs" onClick={handleEdit}>
                 <h4>Current Backlogs</h4>
                 <h4>0</h4>
                 <span className="icon-box">
                   <MdEdit className="icon" />
                 </span>
               </div>
-              <div className="info" id="last">
+              <div
+                className="info last"
+                id="backlogHistory"
+                onClick={handleEdit}
+              >
                 <h4>Backlog History</h4>
                 <h4>0</h4>
                 <span className="icon-box">
@@ -288,7 +300,7 @@ const MyData = () => {
                   <MdEdit className="icon" />
                 </span>
               </div>
-              <div className="info" id="last">
+              <div className="info last">
                 <h4>Python</h4>
                 <span className="icon-box">
                   <MdEdit className="icon" />

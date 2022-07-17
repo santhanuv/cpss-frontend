@@ -5,8 +5,44 @@ const Styled = styled.div`
 
   padding: 60px;
 
+  .progress-container {
+    width: 100%;
+    margin-bottom: 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+  }
+
+  .progress-container .step {
+    z-index: 5;
+    background-color: lightgrey;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .step-2::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 4px;
+    background-color: red;
+  }
+
+  .progress {
+    position: absolute;
+    height: 4px;
+    width: 100%;
+    z-index: -1;
+    background-color: lightgray;
+  }
+
   h1 {
-    margin-bottom: 30px;
+    margin-bottom: 60px;
     text-align: center;
     ${({
       theme: {
@@ -15,8 +51,8 @@ const Styled = styled.div`
       },
     }) => `
       color: ${colors.textPrimary};
-      font-size: ${title.regularPlus.fontSize};
-      font-weight: ${title.regularPlus.fontWeight};
+      font-size: ${title.largePlus.fontSize};
+      font-weight: ${title.largePlus.fontWeight};
     `}
   }
 
@@ -34,15 +70,21 @@ const Styled = styled.div`
     `}
   }
 
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
   .register-card {
-    width: 100%;
+    width: 800px;
     height: fit-content;
     display: flex;
     justify-content: center;
+    align-items: center;
+    flex-direction: column;
   }
 
   form {
-    width: 800px;
+    width: 80%;
     box-shadow: rgba(0, 0, 0, 0.2) 0px 12px 28px 0px,
       rgba(0, 0, 0, 0.1) 0px 2px 4px 0px,
       rgba(255, 255, 255, 0.05) 0px 0px 0px 1px inset;

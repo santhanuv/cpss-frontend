@@ -53,7 +53,7 @@ const Styles = styled.div`
       rgba(0, 0, 0, 0.1) 0px 2px 4px 0px,
       rgba(255, 255, 255, 0.05) 0px 0px 0px 1px inset;
     width: fit-content;
-    border-radius: 4px;
+    border-radius: 10px;
     padding: 30px 60px;
     margin-bottom: 50px;
   }
@@ -84,7 +84,7 @@ const Styles = styled.div`
     font-size: 20px;
   }
 
-  .info-card #last {
+  .info-card .last {
     border-bottom: 0px;
     padding: 16px 16px 0px 16px;
   }

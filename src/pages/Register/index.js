@@ -96,7 +96,7 @@ const Regsiter = () => {
                   <TextField
                     label="Email"
                     type="email"
-                    errorMsg=""
+                    errorMsg="Please enter the correct email address"
                     {...register("email")}
                   />
 

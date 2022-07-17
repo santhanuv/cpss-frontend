@@ -19,7 +19,15 @@ const StudentRegister = () => {
   return (
     <Styled>
       <h1>Student Registeration</h1>
+
       <div className="register-card">
+        {/* <div className="progress-container">
+          <div className="progress"></div>
+          <div className="step step-1">1</div>
+          <div className="step step-2">2</div>
+          <div className="step step-3">3</div>
+          <div className="step step-4">4</div>
+        </div> */}
         <form>
           {formState === 0 && (
             <div className="personal">
