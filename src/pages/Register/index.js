@@ -6,6 +6,9 @@ import TextField from "../../components/TextField";
 import useForm from "../../hooks/useForm";
 import SelectInput from "../../components/SelectInput";
 import Link from "../../components/Link";
+import registerSchema from "./register.schema";
+import { registerUser } from "../../api/user";
+import { useNavigate } from "react-router-dom";
 
 const linksList = [
   {
@@ -15,7 +18,7 @@ const linksList = [
     id: "1",
   },
   {
-    name: "Regsiter",
+    name: "Register",
     to: "#",
     isActive: true,
     id: "2",
@@ -43,10 +46,18 @@ const formInitValue = {
   confirmPassword: "",
 };
 
-const roleOptions = [{ value: "Student" }, { value: "Advisor" }];
+const roleOptions = [
+  { name: "Student", value: "student" },
+  { name: "Advisor", value: "advisor" },
+];
 
 const Regsiter = () => {
-  const { register, onSubmit } = useForm(formInitValue);
+  const { register, onSubmit, errors, resetFormData } = useForm(
+    formInitValue,
+    registerSchema
+  );
+
+  const navigate = useNavigate();
 
   const [formState, setFormState] = useState(0);
 
@@ -58,6 +69,30 @@ const Regsiter = () => {
   const handleBack = (e) => {
     e.preventDefault();
     setFormState((prev) => (prev !== 0 ? prev - 1 : prev));
+  };
+
+  const postData = async ({ firstName, lastName, email, password, role }) => {
+    try {
+      const { response, err } = await registerUser({
+        firstName,
+        lastName,
+        email,
+        password,
+        role,
+      });
+
+      if (response) {
+        console.log(response);
+        resetFormData();
+        navigate(`/login`);
+      }
+
+      if (err) {
+        console.log(err);
+      }
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
@@ -76,14 +111,7 @@ const Regsiter = () => {
                 <Link isLight={true}> Privacy Policy.</Link>
               </p>
             </aside>
-            <form
-              className="form-box"
-              onSubmit={(e) =>
-                onSubmit(e, (data) => {
-                  console.log(data);
-                })
-              }
-            >
+            <form className="form-box" onSubmit={(e) => onSubmit(e, postData)}>
               {formState === 0 && (
                 <>
                   <p>Please provide your Role and Email address.</p>
@@ -92,11 +120,12 @@ const Regsiter = () => {
                     options={roleOptions}
                     {...register("role")}
                     label="Role"
+                    errMsg={errors["role"]}
                   />
                   <TextField
                     label="Email"
                     type="email"
-                    errorMsg="Please enter the correct email address"
+                    errorMsg={errors["email"]}
                     {...register("email")}
                   />
 
@@ -119,13 +148,13 @@ const Regsiter = () => {
                   <TextField
                     label="First Name"
                     type="text"
-                    errorMsg=""
+                    errorMsg={errors["firstName"]}
                     {...register("firstName")}
                   />
                   <TextField
                     label="Last Name"
                     type="text"
-                    errorMsg=""
+                    errorMsg={errors["lastName"]}
                     {...register("lastName")}
                   />
 
@@ -148,13 +177,13 @@ const Regsiter = () => {
                   <TextField
                     label="Password"
                     type="password"
-                    errorMsg=""
+                    errorMsg={errors["password"]}
                     {...register("password")}
                   />
                   <TextField
                     label="Confirm Password"
                     type="password"
-                    errorMsg=""
+                    errorMsg={errors["confirmPassword"]}
                     {...register("confirmPassword")}
                   />
 
@@ -165,7 +194,9 @@ const Regsiter = () => {
                         Back
                       </button>
                     )}
-                    <button className="register">Register</button>
+                    <button type="submit" className="register">
+                      Register
+                    </button>
                   </div>
                 </>
               )}

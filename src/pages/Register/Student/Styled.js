@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 
 const Styled = styled.div`
-  height: 100vh;
+  height: fit-content;
 
   padding: 60px;
 

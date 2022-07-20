@@ -18,8 +18,9 @@ const StyledVerify = styled.div`
 
   .verify-icon {
     cursor: pointer;
+    text-decoration: none;
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     gap: 8px;
     border: none;
@@ -32,10 +33,23 @@ const StyledVerify = styled.div`
     }) =>
       ` font-size: ${label.smallPlus.fontSize}; 
         font-weight: ${label.smallPlus.fontWeight};
+        color: ${colors.textPrimary};
         :hover {
             color: ${colors.complimentary}
         }
       `};
+  }
+
+  .done-msg {
+    display: flex;
+    align-items: center;
+    padding: 20px 0px;
+    font-size: 22px;
+    color: ${({ theme: { colors } }) => colors.complimentary};
+  }
+
+  .done-msg .icon {
+    font-size: 30px;
   }
 `;
 

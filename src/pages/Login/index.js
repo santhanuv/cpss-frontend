@@ -14,6 +14,7 @@ import useForm from "../../hooks/useForm";
 import { createSession } from "../../api/session";
 import useAuth from "../../hooks/useAuth";
 import { useNavigate, useLocation } from "react-router-dom";
+import loginSchema from "./login.schema";
 
 const initForm = {
   email: "",
@@ -26,10 +27,8 @@ const Login = () => {
   const location = useLocation();
 
   const from = location?.state?.from?.pathname;
-  const [formData, setFormData] = useState({ email: "", password: "" });
-  const [errors, setErrors] = useState({ email: "", password: "" });
 
-  const { onSubmit, onChange, register } = useForm(initForm);
+  const { onSubmit, errors, register } = useForm(initForm, loginSchema);
 
   const doAuth = async (data) => {
     const response = await createSession(data);
@@ -37,12 +36,14 @@ const Login = () => {
       const authData = {
         accessToken: response.data?.accessToken,
         role: response.data?.role,
+        status: response.data?.status,
       };
       setAuth(authData);
-      const to = authData.role ? `/dashboard/${authData.role}` : `/error`;
+      const to = authData.role ? `/${authData.role}` : `/error`;
       navigate(from || to, { replace: true });
       return true;
     } else {
+      alert("Invalid username or password");
       console.error(response.err);
       return false;
     }
@@ -98,14 +99,13 @@ const Login = () => {
               <TextField
                 label="Email"
                 type="email"
-                errorMsg={errors.email}
-                errorState={true}
+                errorMsg={errors["email"]}
                 isRequired={true}
                 {...register("email")}
               />
               <TextField
                 label="Password"
-                errorMsg={errors.password}
+                errorMsg={errors["password"]}
                 type="password"
                 errorState={true}
                 isRequired={true}

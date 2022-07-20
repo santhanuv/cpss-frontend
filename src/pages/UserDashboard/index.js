@@ -13,9 +13,10 @@ import { Outlet, useLocation } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 
 const findAndSetActiveLink = (links, path) => {
-  const activeLink = links.filter((link) => link.to === path)[0];
-  activeLink.isActive = true;
-  return activeLink.name;
+  let activeLink = links.filter((link) => link.to === path)[0];
+  activeLink?.subLink && (activeLink = links[activeLink?.activeIndex]);
+  activeLink && (activeLink.isActive = true);
+  return activeLink?.name;
 };
 
 const UserDashboard = () => {
@@ -24,16 +25,16 @@ const UserDashboard = () => {
 
   const sidebarLinks = {
     student: [
+      // {
+      //   name: "Home",
+      //   icon: <MdHome />,
+      //   to: "/student/home",
+      //   isActive: false,
+      // },
       {
-        name: "Home",
-        icon: <MdHome />,
-        to: "/dashboard/student",
-        isActive: false,
-      },
-      {
-        name: "My Data",
+        name: "My Profile",
         icon: <FaUserGraduate />,
-        to: "/dashboard/student/mydata",
+        to: "/student",
         isActive: false,
       },
     ],
@@ -41,44 +42,49 @@ const UserDashboard = () => {
       {
         name: "Home",
         icon: <MdHome />,
-        to: "/dashboard/advisor",
+        to: "/advisor",
         isActive: false,
       },
       {
         name: "Verify Students",
         icon: <FaUserCheck />,
-        to: "/dashboard/advisor/verify",
+        to: "/advisor/verify",
         isActive: false,
+      },
+      {
+        to: "/advisor/verify/profile",
+        subLink: true,
+        activeIndex: 1,
       },
     ],
     admin: [
       {
         name: "Home",
         icon: <MdHome />,
-        to: "/dashboard/admin",
+        to: "/admin",
         isActive: false,
       },
       {
         name: "New Advisors",
         icon: <FaUserPlus />,
-        to: "/dashboard/admin/new-advisors",
+        to: "/admin/new-advisors",
         isActive: false,
       },
       {
         name: "Export Data",
         icon: <BiExport />,
-        to: "/dashboard/admin/export",
+        to: "/admin/export",
         isActive: false,
       },
     ],
   };
 
   const activeLinkName = findAndSetActiveLink(
-    sidebarLinks[auth.role || "student"],
+    sidebarLinks[auth.role],
     location.pathname
   );
 
-  const selectedSidebar = sidebarLinks[auth.role || "student"];
+  const selectedSidebar = sidebarLinks[auth.role];
 
   return (
     <StyledWrapper>

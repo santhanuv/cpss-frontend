@@ -38,6 +38,19 @@ const StyledHome = styled.div`
         }
       `};
   }
+
+  .done-msg {
+    display: flex;
+    gap: 25px;
+    align-items: center;
+    padding: 20px 0px;
+    font-size: 22px;
+    color: ${({ theme: { colors } }) => colors.error};
+  }
+
+  .done-msg .icon {
+    font-size: 30px;
+  }
 `;
 
 export default StyledHome;

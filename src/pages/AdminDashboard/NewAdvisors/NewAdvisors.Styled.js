@@ -25,17 +25,23 @@ const StyledNewAdvisors = styled.div`
 
   ${({ theme: { colors } }) => `
     #reject-btn {
+      color: ${colors.textPrimary};
         :hover {
             color: ${colors.error}
         }
     }
 
     #approve-btn {
+      color: ${colors.textPrimary};
         :hover {
             color: ${colors.complimentary}
         }
     }
   `}
+
+  .icon-btn .icon {
+    font-size: 25px;
+  }
 
   .icon-btn {
     cursor: pointer;
@@ -51,9 +57,22 @@ const StyledNewAdvisors = styled.div`
         colors,
       },
     }) =>
-      ` font-size: ${label.smallPlus.fontSize}; 
-        font-weight: ${label.smallPlus.fontWeight};
+      ` font-size: 18px; 
+        font-weight: 500;
+        color: ${colors.error};
       `};
+  }
+
+  .done-msg {
+    display: flex;
+    align-items: center;
+    padding: 20px 0px;
+    font-size: 22px;
+    color: ${({ theme: { colors } }) => colors.complimentary};
+  }
+
+  .done-msg .icon {
+    font-size: 30px;
   }
 `;
 

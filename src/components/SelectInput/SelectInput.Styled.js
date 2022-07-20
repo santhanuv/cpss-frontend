@@ -20,6 +20,19 @@ const StyledSelectInput = styled.div`
   `}
   }
 
+  .error-msg {
+    color: ${({ theme }) => theme.colors.error};
+    margin: 12px 0px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .error-icon {
+    font-size: 24px;
+    display: flex;
+  }
+
   select {
     width: 100%;
     display: block;

@@ -6,7 +6,7 @@ import { MdError } from "react-icons/md";
 
 const TextField = ({
   label = "Label",
-  errorMsg = "No msg",
+  errorMsg = "",
   errorState = true,
   type = "text",
   isRequired = false,
@@ -15,6 +15,7 @@ const TextField = ({
   placeholder = "",
   name,
   id = null,
+  readOnly = false,
 }) => {
   const inputID = id ? id : name;
 
@@ -29,6 +30,7 @@ const TextField = ({
         onChange={onChange}
         name={name}
         id={inputID}
+        readOnly={readOnly}
       />
       {errorMsg && (
         <StyledErrorText>

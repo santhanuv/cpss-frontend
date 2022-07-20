@@ -10,6 +10,7 @@ const Logout = ({ children }) => {
     console.log("logout");
     (async () => {
       const status = await userLogout();
+      console.log(status);
       if (status) navigate("/login", { replace: true });
       else navigate("/error", { replace: true });
     })();

@@ -1,7 +1,7 @@
 import React from "react";
 import { StyledTable, TableWrapper } from "./StyledTable";
 
-const Table = ({ colNames = [], data = [] }) => {
+const Table = ({ colNames = [], data = [], rowCallback = () => {} }) => {
   return (
     <TableWrapper>
       <StyledTable>
@@ -14,7 +14,7 @@ const Table = ({ colNames = [], data = [] }) => {
         </thead>
         <tbody>
           {data.map((row, index) => (
-            <tr key={index}>
+            <tr key={index} onClick={rowCallback}>
               {row.map((col, index) => (
                 <td key={index}>{col}</td>
               ))}

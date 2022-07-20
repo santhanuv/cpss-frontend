@@ -2,10 +2,13 @@ import styled from "@emotion/styled";
 import { Link } from "react-router-dom";
 
 const StyledSidebarLink = styled(Link)`
+  padding: 16px 48px 16px 16px;
+  width: 100%;
+  border-radius: 4px;
   display: flex;
   gap: 15px;
   justify-content: flex-start;
-  align-items: flex-end;
+  align-items: center;
   text-decoration: none;
   width: 100%;
 `;
@@ -15,7 +18,7 @@ const StyledText = styled.h3`
 
   ${({ theme: { colors }, isActive }) =>
     isActive
-      ? `color: ${colors.background}; background-color: ${colors.complimentary}`
+      ? `color: ${colors.background};`
       : `color: ${colors.textPrimary};`};
 
   font-size: ${({
@@ -28,7 +31,7 @@ const StyledText = styled.h3`
   font-weight: normal;
 `;
 const StyledIcon = styled.span`
-  font-size: 30px;
+  font-size: 24px;
   display: flex;
   justify-content: center;
   align-items: center;

@@ -26,18 +26,14 @@ const StyledLinksWrapper = styled.div`
 `;
 
 const StyledLinkWrapper = styled.div`
-  padding: 8px 48px 8px 16px;
-  width: 100%;
-  border-radius: 4px;
-
   ${({ theme: { colors }, isActive }) =>
-    isActive && `background-color: ${colors.complimentary}`};
+    isActive && `a { background-color: ${colors.primary}; }`};
 
   &:hover {
     a h3,
     span {
       ${({ isActive, theme: { colors } }) =>
-        !isActive && `color: ${colors.complimentary}`}
+        !isActive && `color: ${colors.secondary}`}
     }
   }
 `;

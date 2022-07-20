@@ -1,6 +1,50 @@
 import styled from "@emotion/styled";
 
 const Styles = styled.div`
+  .my-status {
+    margin-bottom: 30px;
+    font-size: 20px;
+    display: flex;
+    gap: 25px;
+    align-items: center;
+  }
+
+  .my-status span {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .my-status .verified {
+    ${({ theme: { colors } }) => `color: ${colors.complimentary};`}
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+  }
+
+  .my-status .verified .icon {
+    font-size: 24px;
+  }
+  .my-status .not-verified .icon {
+    font-size: 24px;
+  }
+
+  .my-status .rejected .icon {
+    font-size: 24px;
+  }
+
+  .my-status .not-verified {
+    color: #a7ac20;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+  }
+
+  .my-status .rejected {
+    color: ${({ theme: { colors } }) => colors.error};
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+  }
+
   .selector {
     display: flex;
     gap: 100px;
@@ -9,8 +53,8 @@ const Styles = styled.div`
   }
   .selector #active {
     ${({ theme: { colors } }) => `color: ${colors.complimentary}`};
-    text-decoration: underline;
-    font-weight: 500;
+    /* text-decoration: underline; */
+    font-weight: 600;
     text-underline-offset: 4px;
   }
 
@@ -25,12 +69,11 @@ const Styles = styled.div`
         colors,
       },
     }) =>
-      `font-size: ${label.regular.fontSize};
-      font-weight: ${label.regular.fontWeight};
+      `font-size: ${label.largePlus.fontSize};
+      font-weight: ${label.largePlus.fontWeight};
       color: ${colors.textPrimary};
       :hover {
         color: ${colors.complimentary};
-        text-decoration: underline;
     }
       `};
     text-decoration: none;
@@ -46,6 +89,49 @@ const Styles = styled.div`
       ` font-size: ${title.smallPlus.fontSize};
         font-weight: ${title.smallPlus.fontWeight};
       `};
+  }
+
+  .info-section {
+    width: fit-content;
+  }
+
+  .info-head {
+    display: flex;
+    justify-content: space-between;
+    margin: 15px 0;
+  }
+
+  .info-head h2 {
+    margin: 0;
+  }
+
+  .info-head .icon {
+    font-size: 24px;
+  }
+
+  h6 {
+    font-size: 16px;
+    font-weight: normal;
+    width: 200px;
+  }
+
+  #email {
+    content: "You can't change your email id";
+  }
+
+  .info-head button {
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: none;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 50%;
+
+    :hover {
+      background-color: ${({ theme: { colors } }) => colors.lightGrey};
+    }
   }
 
   .info-card {
@@ -90,7 +176,25 @@ const Styles = styled.div`
   }
 
   .info-card .info h4 {
+    font-size: 18px;
+    font-weight: normal;
     width: 250px;
+  }
+
+  .info-card .empty-skills {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .info-card .empty-skills .text {
+    font-size: 20px;
+  }
+
+  .info-card .empty-skills .icon {
+    font-size: 30px;
+    color: ${({ theme: { colors } }) => colors.error};
   }
 `;
 

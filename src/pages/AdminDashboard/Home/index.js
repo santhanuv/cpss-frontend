@@ -1,13 +1,19 @@
 import StyledHome from "./Home.Styled";
-
 import Table from "../../../components/Table";
-import { MdDelete } from "react-icons/md";
+import { MdDelete, MdError } from "react-icons/md";
+import { useOutletContext } from "react-router-dom";
+import { deleteAdvisor } from "../../../api/admin";
+import useAuthAxios from "../../../hooks/useAuthAxios";
 
-const addDeleteIcon = (data) => {
-  return data.map((row) => {
+const addDeleteIcon = (data, callback) => {
+  return data.map((row, index) => {
     row.push(
       <div className="action-btns">
-        <button className="delete-icon">
+        <button
+          id={index}
+          onClick={() => callback(index)}
+          className="delete-icon"
+        >
           <MdDelete className="icon" /> Delete
         </button>
       </div>
@@ -16,7 +22,7 @@ const addDeleteIcon = (data) => {
   });
 };
 
-const headCols = ["#", "Name", "Branch", "Batch", "Employee Code", "Action"];
+const headCols = ["#", "Name", "Branch", "Batch", "Action"];
 
 const data = addDeleteIcon([
   ["1", "Advisor One", "CSE", "19-23", "Emp-123"],
@@ -24,10 +30,50 @@ const data = addDeleteIcon([
 ]);
 
 const Home = () => {
+  const [advisors, setAdvisors] = useOutletContext();
+  const axios = useAuthAxios();
+
+  const deleteData = async (index) => {
+    try {
+      const advisorID = advisors[index].advisor_id;
+      const { response, err } = await deleteAdvisor(axios, advisorID);
+      if (response) {
+        console.log(response.data);
+      } else if (err) {
+        console.error(err);
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const tableData = addDeleteIcon(
+    advisors
+      .map((advisor, index) =>
+        advisor.status === "approved"
+          ? [
+              index + 1,
+              `${advisor.first_name} ${advisor.last_name}`,
+              advisor.branch,
+              advisor.batch,
+            ]
+          : []
+      )
+      .filter((row) => row.length !== 0),
+    deleteData
+  );
+
   return (
     <StyledHome>
-      <h2>Advisors</h2>
-      <Table colNames={headCols} data={data} />
+      <h2>Approved Advisors</h2>
+      {tableData.length === 0 ? (
+        <div className="done-msg">
+          <MdError className="icon" />
+          No Advisors Approved Advisors
+        </div>
+      ) : (
+        <Table colNames={headCols} data={tableData} />
+      )}
     </StyledHome>
   );
 };
