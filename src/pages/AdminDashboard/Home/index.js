@@ -30,7 +30,7 @@ const data = addDeleteIcon([
 ]);
 
 const Home = () => {
-  const [advisors, setAdvisors] = useOutletContext();
+  const [advisors, fetchData] = useOutletContext();
   const axios = useAuthAxios();
 
   const deleteData = async (index) => {
@@ -39,6 +39,7 @@ const Home = () => {
       const { response, err } = await deleteAdvisor(axios, advisorID);
       if (response) {
         console.log(response.data);
+        await fetchData();
       } else if (err) {
         console.error(err);
       }

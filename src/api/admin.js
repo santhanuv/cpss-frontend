@@ -64,6 +64,20 @@ const getAllAdvisors = async (axios) => {
   }
 };
 
+<<<<<<< HEAD
+=======
+const filterStudentData = async (axios, data) => {
+  try {
+    if (!axios) throw new Error("No axios");
+    if (!data.batch) throw new Error("NO batch");
+    const response = await postData(axios, data, `${url}/students/filter`);
+    return { response };
+  } catch (err) {
+    return { err };
+  }
+};
+
+>>>>>>> ee6af78 (laptop)
 const deleteAdvisor = async (axios, advisorID) => {
   try {
     if (!axios) throw new Error("No axios");
@@ -78,4 +92,8 @@ const deleteAdvisor = async (axios, advisorID) => {
   }
 };
 
+<<<<<<< HEAD
 export { getAllAdvisors, updateMyStatus, deleteAdvisor };
+=======
+export { getAllAdvisors, updateMyStatus, deleteAdvisor, filterStudentData };
+>>>>>>> ee6af78 (laptop)

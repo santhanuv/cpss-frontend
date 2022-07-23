@@ -31,21 +31,26 @@ const Login = () => {
   const { onSubmit, errors, register } = useForm(initForm, loginSchema);
 
   const doAuth = async (data) => {
-    const response = await createSession(data);
-    if (response.data) {
-      const authData = {
-        accessToken: response.data?.accessToken,
-        role: response.data?.role,
-        status: response.data?.status,
-      };
-      setAuth(authData);
-      const to = authData.role ? `/${authData.role}` : `/error`;
-      navigate(from || to, { replace: true });
-      return true;
-    } else {
-      alert("Invalid username or password");
-      console.error(response.err);
-      return false;
+    try {
+      const { response, err } = await createSession(data);
+      if (response) {
+        const authData = {
+          accessToken: response.data?.accessToken,
+          role: response.data?.role,
+          status: response.data?.status,
+        };
+
+        setAuth(authData);
+        const to = authData.role ? `/${authData.role}` : `/error`;
+        navigate(from || to, { replace: true });
+        return true;
+      } else {
+        if (err.response.status === 401) alert("Invalid email or password.");
+        else alert("Server Error!");
+        console.error(err);
+      }
+    } catch (err) {
+      console.error(err);
     }
   };
 

@@ -28,7 +28,10 @@ const AdvisorDashboard = () => {
     if (!auth.status && auth.role === "advisor") navigate("/advisor/register");
 
     if (auth.status === "updated") navigate("/advisor/not-approved");
-    else if (auth.status === "rejected") navigate("/logout");
+    else if (auth.status === "rejected") {
+      alert("You are rejected by admin");
+      navigate("/logout", { replace: true });
+    }
 
     fetchData();
   }, []);

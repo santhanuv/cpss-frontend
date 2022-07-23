@@ -26,9 +26,12 @@ const AdvisorRegister = () => {
 
       if (response) {
         console.log(response.data);
-        navigate("/advisor");
+        alert("You need to be approved by advisors");
+        navigate("/logout");
       } else if (err) {
         console.error(err);
+        if (err.response.status === 409)
+          alert(`Advisor for ${data.branch} ${data.batch} already exits.`);
       }
     } catch (err) {
       console.error(err);

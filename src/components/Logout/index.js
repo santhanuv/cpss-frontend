@@ -9,10 +9,8 @@ const Logout = ({ children }) => {
   useEffect(() => {
     console.log("logout");
     (async () => {
-      const status = await userLogout();
-      console.log(status);
-      if (status) navigate("/login", { replace: true });
-      else navigate("/error", { replace: true });
+      await userLogout();
+      navigate("/login", { replace: true });
     })();
   }, []);
 

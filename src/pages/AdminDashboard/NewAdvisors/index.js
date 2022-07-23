@@ -57,7 +57,7 @@ const NewAdvisors = () => {
   const tableData = addIcons(
     advisors
       .map((advisor, index) =>
-        advisor.status !== "approved"
+        advisor.status === "updated"
           ? [
               index + 1,
               `${advisor.first_name} ${advisor.last_name}`,

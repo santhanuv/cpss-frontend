@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Button from "../../../components/Button";
 import CheckBox from "../../../components/CheckBox";
 import SelectInput from "../../../components/SelectInput";
@@ -6,6 +6,13 @@ import Table from "../../../components/Table";
 import TextField from "../../../components/TextField";
 import useForm from "../../../hooks/useForm";
 import StyledExport from "./Export.Styled";
+import { getAllBranches } from "../../../api/branch";
+import { getAllBatches } from "../../../api/batch";
+import useAuthAxious from "../../../hooks/useAuthAxios";
+import { filterStudentData } from "../../../api/admin";
+import formatDate from "../../../utility/formatDate";
+import { MdError } from "react-icons/md";
+import filterSchema from "./filterSchema";
 
 const defaultFilterOptions = {
   firstName: false,
@@ -22,82 +29,247 @@ const columns = [
   "First Name",
   "Last Name",
   "Email",
-  "MobNo",
-  "RollNo",
-  "AdmNo",
-  "Cgpa",
+  "DOB",
+  "address",
+  "Phone",
+  "Gender",
+  "Twelth School",
+  "Twelth Percentage",
+  "Tenth School",
+  "Tenth Percentage",
+  "Admission NO",
+  "Register NO",
+  "S1 SGPA",
+  "S2 SGPA",
+  "S3 SGPA",
+  "S4 SGPA",
+  "S5 SGPA",
+  "S6 SGPA",
+  "S7 SGPA",
+  "S8 SGPA",
+  "CGPA",
+  "Current Backlogs",
+  "Backlog History",
+  "Skills",
+  "Batch",
   "Branch",
 ];
 
-const branches = ["CSE", "CE", "ME", "CHE"];
-
-const batches = [{ value: "19-23" }, { value: "20-24" }, { value: "25-26" }];
-
+const columnNames = [
+  "firstName",
+  "lastName",
+  "email",
+  "dob",
+  "address",
+  "phone",
+  "gender",
+  "twelth_school",
+  "tenth_school",
+  "twelth_percentage",
+  "tenth_percentage",
+  "cgpa",
+  "skills",
+  "batch",
+  "branch",
+  "sgpa_s1",
+  "sgpa_s2",
+  "sgpa_s3",
+  "sgpa_s4",
+  "sgpa_s5",
+  "sgpa_s6",
+  "sgpa_s7",
+  "sgpa_s8",
+  "current_backlogs",
+  "backlog_history",
+  "register_no",
+  "adm_no",
+];
 const ExportData = () => {
   const [filterOpen, setFilterOpen] = useState(true);
-  const { register, onSubmit } = useForm({ firstName: false });
-  const [filterOptions, setFilterOptions] = useState([]);
+  const axios = useAuthAxious();
+  const { validateFormData } = useForm();
+  const [studentData, setStudentData] = useState([]);
+  const [branches, setBranches] = useState([]);
+  const [batches, setBatches] = useState([]);
+  const [errors, setErrors] = useState({});
 
-  const handleChange = (e) => {
+  const [filterOptions, setFilterOptions] = useState({
+    requiredColumns: [
+      "first_name",
+      "last_name",
+      "email",
+      "dob",
+      "address",
+      "phone",
+      "gender",
+      "twelth_school",
+      "tenth_school",
+      "twelth_percentage",
+      "tenth_percentage",
+      "cgpa",
+      "skills",
+      "batch",
+      "branch",
+    ],
+
+    selectedBranches: branches || [],
+    batch: "",
+    minCGPA: 0,
+    currentBacklogs: "",
+    backlogHistory: "",
+  });
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const {
+          response: { data: batches },
+          err: batchErr,
+        } = await getAllBatches();
+
+        const {
+          response: { data: branches },
+          err: branchErr,
+        } = await getAllBranches();
+
+        if (branches) {
+          setBranches(branches);
+        }
+
+        if (batches) {
+          setBatches(batches);
+        }
+
+        if (batchErr || branchErr) {
+          batchErr && console.error(batchErr);
+          branchErr && console.error(branchErr);
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    })();
+  }, []);
+
+  useEffect(() => {
+    setFilterOptions((prev) => ({ ...prev, selectedBranches: branches }));
+  }, [branches]);
+
+  const handleColumnChange = (e) => {
     const isChecked = e.currentTarget.checked;
-    const name = e.currentTarget.value;
+    const name = e.currentTarget.name;
+
+    if (isChecked)
+      setFilterOptions((prev) => ({
+        ...prev,
+        requiredColumns: [...prev.requiredColumns, name],
+      }));
+    else
+      setFilterOptions((prev) => ({
+        ...prev,
+        requiredColumns: prev.requiredColumns.filter(
+          (column) => column !== name
+        ),
+      }));
+
+    // setFilterOptions((prev) => ({
+    //   ...prev,
+    //   requiredColumns: { ...prev.requiredColumns, [name]: isChecked },
+    // }));
   };
 
-  const headCols = [
-    "#",
-    "First Name",
-    "Last Name",
-    "Batch",
-    "branch",
-    "DOB",
-    "Adm No",
-    "Roll No",
-    "Mob No",
-    "Email",
-    "CGPA",
-  ];
+  const handleSelectedBranchChange = (e) => {
+    const isChecked = e.currentTarget.checked;
+    const name = e.currentTarget.name;
 
-  const data = [
-    [
-      "1",
-      "Student",
-      "One",
-      "19-23",
-      "CSE",
-      "10-02-2001",
-      "CS-19-544",
-      "51",
-      "1233456789",
-      "someone@email.com",
-      "7.5",
-    ],
-    [
-      "1",
-      "Student",
-      "One",
-      "19-23",
-      "CSE",
-      "10-02-2001",
-      "CS-19-544",
-      "51",
-      "1233456789",
-      "someone@email.com",
-      "7.5",
-    ],
-    [
-      "1",
-      "Student",
-      "One",
-      "19-23",
-      "CSE",
-      "10-02-2001",
-      "CS-19-544",
-      "51",
-      "1233456789",
-      "someone@email.com",
-      "7.5",
-    ],
-  ];
+    if (isChecked)
+      setFilterOptions((prev) => ({
+        ...prev,
+        selectedBranches: [...prev.selectedBranches, name],
+      }));
+    else
+      setFilterOptions((prev) => ({
+        ...prev,
+        selectedBranches: prev.selectedBranches.filter(
+          (branch) => branch !== name
+        ),
+      }));
+  };
+
+  const onInputChange = (e) => {
+    const name = e.currentTarget.name;
+    const value = e.currentTarget.value;
+    setFilterOptions((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const filterData = async () => {
+    try {
+      const formData = {
+        batch: filterOptions.batch,
+        minCGPA: filterOptions.minCGPA,
+        currentBacklogs: filterOptions.currentBacklogs
+          ? filterOptions.currentBacklogs
+          : null,
+        backlogHistory: filterOptions.backlogHistory
+          ? filterOptions.backlogHistory
+          : null,
+      };
+
+      const errors = await validateFormData(filterSchema, formData);
+      setErrors(errors);
+      if (Object.keys(errors).length !== 0) {
+        return false;
+      }
+
+      const { response, err } = await filterStudentData(axios, filterOptions);
+      if (response) {
+        const formatedData =
+          response.data &&
+          response.data.map((student) =>
+            student.dob
+              ? { ...student, dob: formatDate(student.dob) }
+              : { ...student }
+          );
+        setStudentData(formatedData);
+        return true;
+      } else {
+        alert("Filter error");
+        console.error(err);
+        return false;
+      }
+    } catch (err) {
+      alert("Filter error");
+      console.error(err);
+      return false;
+    }
+  };
+
+  const selectedBranchStudents = studentData.filter(
+    (student) => filterOptions.selectedBranches.indexOf(student.branch) > -1
+  );
+
+  const tableData = selectedBranchStudents.map((student) => {
+    return filterOptions.requiredColumns
+      .map((column) => (student[column] ? student[column] : "-"))
+      .filter((value) => value);
+  });
+
+  // const tableColumns = Object.keys(
+  //   studentData.length !== 0 ? studentData[0] : []
+  // ).filter((column) => filterOptions.requiredColumns[column]);
+
+  // const branchIndex = tableColumns ? tableColumns.indexOf("branch") : -1;
+
+  // const tableData = studentData
+  //   .map((student) => Object.values(student))
+  //   .filter((data) =>
+  //     branchIndex
+  //       ? filterOptions.selectedBranches.indexOf(data[branchIndex])
+  //       : false
+  //   );
+
+  const tableColumns = filterOptions.requiredColumns.map((column) =>
+    column.split("_").join(" ")
+  );
 
   return (
     <StyledExport>
@@ -120,62 +292,98 @@ const ExportData = () => {
           />
         </div>
       </div>
-      <Table colNames={headCols} data={data} />
+      {tableData.length === 0 ? (
+        <div className="done-msg">
+          <MdError className="icon" />
+          No Students With Applied Filters
+        </div>
+      ) : (
+        <Table colNames={tableColumns} data={tableData} />
+      )}
       {filterOpen && (
         <div className="filter-box">
           <h3>Filters</h3>
           <h4>Columns</h4>
-          <form
-            onSubmit={(e) =>
-              onSubmit(e, (data) => {
-                console.log(filterOptions);
-              })
-            }
-          >
+          <form>
             <div className="column-box">
-              {columns.map((column) => (
+              {/* {(() => {
+                const columns = [];
+                for (const [key, value] of Object.entries(
+                  filterOptions.requiredColumns
+                )) {
+                  columns.push(
+                    <CheckBox
+                      name={key}
+                      key={key}
+                      value={value}
+                      label={key}
+                      onChange={handleColumnChange}
+                    />
+                  );
+                }
+                return columns;
+              })()} */}
+
+              {columnNames.map((column) => (
                 <CheckBox
                   key={column}
-                  value={column}
+                  name={column}
+                  value={filterOptions.requiredColumns.indexOf(column) > -1}
                   label={column}
-                  onChange={handleChange}
+                  onChange={handleColumnChange}
                 />
               ))}
             </div>
             <h4>Branches</h4>
             <div className="column-box">
-              {branches.map((column) => (
+              {branches.map((branch) => (
                 <CheckBox
-                  key={column}
-                  value={column}
-                  label={column}
-                  onChange={handleChange}
+                  key={branch}
+                  name={branch}
+                  value={filterOptions.selectedBranches.indexOf(branch) > -1}
+                  label={branch}
+                  onChange={handleSelectedBranchChange}
                 />
               ))}
             </div>
             <div className="textfield-box">
               <SelectInput
-                options={batches}
-                {...register("batch")}
+                name="batch"
+                value={filterOptions.batch}
+                options={batches.map((batch) => ({ value: batch }))}
+                onChange={onInputChange}
                 label="Batch"
+                errMsg={errors["batch"]}
               />
               <TextField
-                {...register("cgpa-max")}
+                name="minCGPA"
                 label="Min CGPA"
-                errorMsg={false}
+                value={filterOptions.minCGPA}
+                onChange={onInputChange}
+                errorMsg={errors["minCGPA"]}
               />
               <TextField
-                {...register("currBacklogs")}
+                value={filterOptions.currentBacklogs}
+                name="currentBacklogs"
                 label="Current Backlogs"
-                errorMsg={false}
+                onChange={onInputChange}
+                errorMsg={errors["currentBacklogs"]}
+              />
+              <TextField
+                value={filterOptions.backlogHistory}
+                name="backlogHistory"
+                label="Backlog History"
+                onChange={onInputChange}
+                errorMsg={errors["backlogHistory"]}
               />
             </div>
             <div className="apply-btn-box">
               <Button
                 text="Apply"
-                onClick={(e) => {
+                onClick={async (e) => {
                   e.preventDefault();
-                  setFilterOpen(false);
+                  const res = await filterData();
+                  if (res) setFilterOpen(false);
                 }}
               />
             </div>

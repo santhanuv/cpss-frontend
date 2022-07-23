@@ -1,14 +1,13 @@
 import StyledCheckBox from "./CheckBox.Styled";
 
-const CheckBox = ({ name, value, checked, id, onChange, label }) => {
+const CheckBox = ({ name, value = false, id, onChange, label }) => {
   return (
     <StyledCheckBox>
       <label>{label}</label>
       <input
         type="checkbox"
         name={name}
-        value={value}
-        checked={checked}
+        checked={value}
         id={id}
         onChange={onChange}
       />

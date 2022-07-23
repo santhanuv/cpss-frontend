@@ -14,6 +14,10 @@ const StyledTable = styled.table`
       `color: ${colors.background}; background: ${colors.primary}`};
   }
 
+  thead {
+    text-transform: capitalize;
+  }
+
   thead,
   tbody {
     text-align: left;
@@ -38,11 +42,11 @@ const StyledTable = styled.table`
   }
 
   th {
-    padding: 15px;
+    padding: 15px 50px;
   }
 
   td {
-    padding: 15px;
+    padding: 15px 50px;
   }
 `;
 

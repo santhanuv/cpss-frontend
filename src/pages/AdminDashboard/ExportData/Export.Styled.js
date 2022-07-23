@@ -4,7 +4,7 @@ const StyledExport = styled.div`
   .filter-box {
     display: flex;
     flex-direction: column;
-    width: 75%;
+    width: 65%;
     height: 90%;
     border: 1px solid grey;
     border-radius: 10px;
@@ -25,6 +25,7 @@ const StyledExport = styled.div`
   .column-box {
     display: flex;
     flex-wrap: wrap;
+    width: 80%;
     gap: 15px;
     margin-bottom: 25px;
   }
@@ -74,7 +75,20 @@ const StyledExport = styled.div`
             font-size: ${label.regularPlus.fontSize};
             font-weight: ${label.regularPlus.fontWeight};
         }
-    `}
+    `};
+
+  .done-msg {
+    display: flex;
+    gap: 25px;
+    align-items: center;
+    padding: 20px 0px;
+    font-size: 22px;
+    color: ${({ theme: { colors } }) => colors.error};
+  }
+
+  .done-msg .icon {
+    font-size: 30px;
+  }
 `;
 
 export default StyledExport;
