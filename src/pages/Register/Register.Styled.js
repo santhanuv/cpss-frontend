@@ -71,9 +71,7 @@ const StyledRegister = styled.div`
 
   .register {
     display: block;
-    width: 150px;
     margin-top: 25px;
-    margin-left: auto;
   }
 `;
 
