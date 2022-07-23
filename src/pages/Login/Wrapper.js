@@ -26,6 +26,11 @@ const ContentWrapper = styled.div`
   margin-top: 5%;
   display: flex;
   justify-content: center;
+
+  .login {
+    display: block;
+    margin-top: 25px;
+  }
 `;
 
 export { LoginCard, ContentWrapper };

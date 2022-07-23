@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import TextField from "../../components/TextField";
 import Button from "../../components/Button";
 import GoogleButton from "../../components/Button/GoogleButton";
@@ -22,13 +22,21 @@ const initForm = {
 };
 
 const Login = () => {
+  const [btnActive, setBtnActive] = useState(false);
   const { auth, setAuth } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
 
   const from = location?.state?.from?.pathname;
 
-  const { onSubmit, errors, register } = useForm(initForm, loginSchema);
+  const { onSubmit, errors, register, formData, isSubmitReady } = useForm(
+    initForm,
+    loginSchema
+  );
+
+  useEffect(() => {
+    setBtnActive(isSubmitReady(Object.keys(initForm)));
+  }, [formData, errors]);
 
   const doAuth = async (data) => {
     try {
@@ -119,7 +127,7 @@ const Login = () => {
               <ForgotSection>
                 <Link text="Forgot Password ?" />
               </ForgotSection>
-              <Button text="Login" />
+              <Button text="Login" isActive={btnActive} className="login" />
             </form>
           </StyledRightLayout>
         </LoginCard>
