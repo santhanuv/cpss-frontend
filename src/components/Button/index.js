@@ -7,14 +7,30 @@ import {
 
 import React from "react";
 
-const Button = ({ width = "100%", onClick, text = "", varient, icon }) => {
+const Button = ({
+  width = "100%",
+  onClick,
+  text = "",
+  varient,
+  icon,
+  isActive = true,
+  children,
+  ...extraProps
+}) => {
   return varient !== "google" ? (
-    <StyledButton width={width} onClick={onClick}>
+    <StyledButton
+      {...extraProps}
+      width={width}
+      onClick={onClick}
+      isActive={isActive}
+      disabled={!isActive}
+    >
       {icon && <span>{icon}</span>}
       <span>{text}</span>
+      {children}
     </StyledButton>
   ) : (
-    <StyledGoogleButton width={width} onClick={onClick}>
+    <StyledGoogleButton {...extraProps} width={width} onClick={onClick}>
       <StyledGoogleIcon />
       <StyledGoogleText>Login with Google</StyledGoogleText>
     </StyledGoogleButton>

@@ -13,7 +13,9 @@ const StyledButton = styled.button`
 
   width: ${({ width }) => width};
 
-  ${({ theme: { colors } }) => `
+  ${({ theme: { colors }, isActive }) =>
+    isActive
+      ? `
     background-color: ${colors.complimentary};
     color: ${colors.background};
     &:hover {
@@ -24,6 +26,10 @@ const StyledButton = styled.button`
         border: none;
         outline: 1px solid ${colors.complimentHover};
     }
+    `
+      : `
+    background-color: ${colors.btnGrey};
+      color: ${colors.background};
     `};
 
   ${({
