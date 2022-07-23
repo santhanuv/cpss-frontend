@@ -65,14 +65,25 @@ const useForm = (initValue = {}, schema) => {
     return { name, value: formData[name], onChange };
   };
 
+  const isSubmitReady = (feilds = []) => {
+    if (Object.keys(errors).length !== 0) return false;
+
+    for (const index in feilds) {
+      if (!formData[feilds[index]]) return false;
+    }
+    return true;
+  };
+
   return {
     onChange,
     onSubmit,
     register,
     resetFormData,
     errors,
+    formData,
     validateFormData,
     validateFormDataSync,
+    isSubmitReady,
   };
 };
 
