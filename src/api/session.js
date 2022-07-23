@@ -15,11 +15,7 @@ const createSession = async ({ email, password }) => {
         },
       }
     );
-<<<<<<< HEAD
-    return { data: response.data };
-=======
     return { response };
->>>>>>> ee6af78 (laptop)
   } catch (err) {
     return { err };
   }

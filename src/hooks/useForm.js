@@ -71,11 +71,8 @@ const useForm = (initValue = {}, schema) => {
     register,
     resetFormData,
     errors,
-<<<<<<< HEAD
-=======
     validateFormData,
     validateFormDataSync,
->>>>>>> ee6af78 (laptop)
   };
 };
 
