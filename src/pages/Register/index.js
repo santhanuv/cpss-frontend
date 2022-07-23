@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Navbar from "../../components/Navbar";
 import StyledRegister from "./Register.Styled";
 import Wrapper from "../../components/Wrapper";
@@ -9,6 +9,7 @@ import Link from "../../components/Link";
 import registerSchema from "./register.schema";
 import { registerUser } from "../../api/user";
 import { useNavigate } from "react-router-dom";
+import Button from "../../components/Button";
 
 const linksList = [
   {
@@ -52,24 +53,21 @@ const roleOptions = [
 ];
 
 const Regsiter = () => {
-  const { register, onSubmit, errors, resetFormData } = useForm(
-    formInitValue,
-    registerSchema
-  );
-
+  const [btnActive, setBtnActive] = useState(false);
+  const { register, onSubmit, errors, resetFormData, formData, isSubmitReady } =
+    useForm(formInitValue, registerSchema);
   const navigate = useNavigate();
 
-  const [formState, setFormState] = useState(0);
-
-  const handleNext = (e) => {
-    e.preventDefault();
-    setFormState((prev) => (prev !== 2 ? prev + 1 : prev));
-  };
-
-  const handleBack = (e) => {
-    e.preventDefault();
-    setFormState((prev) => (prev !== 0 ? prev - 1 : prev));
-  };
+  useEffect(() => {
+    const ready = isSubmitReady([
+      "role",
+      "firstName",
+      "lastName",
+      "password",
+      "confirmPassword",
+    ]);
+    setBtnActive(ready);
+  }, [formData, errors]);
 
   const postData = async ({ firstName, lastName, email, password, role }) => {
     try {
@@ -101,105 +99,57 @@ const Regsiter = () => {
         <Navbar links={linksList} />
         <div className="content">
           <div className="card">
-            <aside>
+            <div className="left-box">
               <h1>Register</h1>
               <p>
-                By signing up, you agree to our{" "}
-                <Link isLight={true}>Terms of Use</Link>
-                <br /> and
-                <br />
+                By signing up, you agree to our <br />
+                <Link isLight={true}>Terms of Use</Link> and
                 <Link isLight={true}> Privacy Policy.</Link>
               </p>
-            </aside>
+            </div>
             <form className="form-box" onSubmit={(e) => onSubmit(e, postData)}>
-              {formState === 0 && (
-                <>
-                  <p>Please provide your Role and Email address.</p>
+              <SelectInput
+                options={roleOptions}
+                {...register("role")}
+                label="Role"
+                errMsg={errors["role"]}
+              />
+              <TextField
+                label="Email"
+                type="email"
+                errorMsg={errors["email"]}
+                {...register("email")}
+              />
 
-                  <SelectInput
-                    options={roleOptions}
-                    {...register("role")}
-                    label="Role"
-                    errMsg={errors["role"]}
-                  />
-                  <TextField
-                    label="Email"
-                    type="email"
-                    errorMsg={errors["email"]}
-                    {...register("email")}
-                  />
+              <TextField
+                label="First Name"
+                type="text"
+                errorMsg={errors["firstName"]}
+                {...register("firstName")}
+              />
+              <TextField
+                label="Last Name"
+                type="text"
+                errorMsg={errors["lastName"]}
+                {...register("lastName")}
+              />
 
-                  <div className="btn-box">
-                    {formState !== 0 && (
-                      <button className="back" onClick={handleBack}>
-                        Back
-                      </button>
-                    )}
-                    <button className="next" onClick={handleNext}>
-                      Next
-                    </button>
-                  </div>
-                </>
-              )}
-              {formState === 1 && (
-                <>
-                  <p>Please provide your name.</p>
+              <TextField
+                label="Password"
+                type="password"
+                errorMsg={errors["password"]}
+                {...register("password")}
+              />
+              <TextField
+                label="Confirm Password"
+                type="password"
+                errorMsg={errors["confirmPassword"]}
+                {...register("confirmPassword")}
+              />
 
-                  <TextField
-                    label="First Name"
-                    type="text"
-                    errorMsg={errors["firstName"]}
-                    {...register("firstName")}
-                  />
-                  <TextField
-                    label="Last Name"
-                    type="text"
-                    errorMsg={errors["lastName"]}
-                    {...register("lastName")}
-                  />
-
-                  <div className="btn-box">
-                    {formState !== 0 && (
-                      <button className="back" onClick={handleBack}>
-                        Back
-                      </button>
-                    )}
-                    <button className="next" onClick={handleNext}>
-                      Next
-                    </button>
-                  </div>
-                </>
-              )}
-              {formState === 2 && (
-                <>
-                  <p>Choose a password.</p>
-
-                  <TextField
-                    label="Password"
-                    type="password"
-                    errorMsg={errors["password"]}
-                    {...register("password")}
-                  />
-                  <TextField
-                    label="Confirm Password"
-                    type="password"
-                    errorMsg={errors["confirmPassword"]}
-                    {...register("confirmPassword")}
-                  />
-
-                  {/* <Button text={"Register"} /> */}
-                  <div className="btn-box">
-                    {formState !== 0 && (
-                      <button className="back" onClick={handleBack}>
-                        Back
-                      </button>
-                    )}
-                    <button type="submit" className="register">
-                      Register
-                    </button>
-                  </div>
-                </>
-              )}
+              <Button type="submit" className="register" isActive={btnActive}>
+                Register
+              </Button>
             </form>
           </div>
         </div>
