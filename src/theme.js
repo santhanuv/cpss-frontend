@@ -11,6 +11,8 @@ const theme = {
     error: "#D10F0F",
     tableRowGrey: "#E7E7E7",
     hoverGrey: "#f0f0f0",
+    textGrey: "#f2f2f2",
+    btnGrey: "#b1b1b1",
   },
   typo: {
     title: {
