@@ -16,6 +16,8 @@ const TextField = ({
   name,
   id = null,
   readOnly = false,
+  children,
+  ...props
 }) => {
   const inputID = id ? id : name;
 
@@ -31,6 +33,7 @@ const TextField = ({
         name={name}
         id={inputID}
         readOnly={readOnly}
+        {...props}
       />
       {errorMsg && (
         <StyledErrorText>
