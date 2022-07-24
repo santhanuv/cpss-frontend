@@ -130,6 +130,10 @@ const StyledHome = styled.div`
   .done-msg .icon {
     font-size: 30px;
   }
+
+  .primary-btn .csv-btn {
+    text-decoration: none;
+  }
 `;
 
 export default StyledHome;

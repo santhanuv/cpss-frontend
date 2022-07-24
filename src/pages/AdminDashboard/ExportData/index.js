@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Button from "../../../components/Button";
 import CheckBox from "../../../components/CheckBox";
 import SelectInput from "../../../components/SelectInput";
@@ -13,77 +13,38 @@ import { filterStudentData } from "../../../api/admin";
 import formatDate from "../../../utility/formatDate";
 import { MdError } from "react-icons/md";
 import filterSchema from "./filterSchema";
-
-const defaultFilterOptions = {
-  firstName: false,
-  lastName: false,
-  email: false,
-  mobNo: false,
-  rollNo: false,
-  admNo: false,
-  cgpa: false,
-  branch: false,
-};
+import { CSVLink } from "react-csv";
 
 const columns = [
-  "First Name",
-  "Last Name",
-  "Email",
-  "DOB",
-  "address",
-  "Phone",
-  "Gender",
-  "Twelth School",
-  "Twelth Percentage",
-  "Tenth School",
-  "Tenth Percentage",
-  "Admission NO",
-  "Register NO",
-  "S1 SGPA",
-  "S2 SGPA",
-  "S3 SGPA",
-  "S4 SGPA",
-  "S5 SGPA",
-  "S6 SGPA",
-  "S7 SGPA",
-  "S8 SGPA",
-  "CGPA",
-  "Current Backlogs",
-  "Backlog History",
-  "Skills",
-  "Batch",
-  "Branch",
+  { label: "First Name", key: "first_name" },
+  { label: "Last Name", key: "last_name" },
+  { label: "Email", key: "email" },
+  { label: "DOB", key: "dob" },
+  { label: "address", key: "address" },
+  { label: "Phone", key: "phone" },
+  { label: "Gender", key: "gender" },
+  { label: "Twelth School", key: "twelth_school" },
+  { label: "Twelth Percentage", key: "twelth_percentage" },
+  { label: "Tenth School", key: "tenth_school" },
+  { label: "Tenth Percentage", key: "tenth_percentage" },
+  { label: "Admission NO", key: "adm_no" },
+  { label: "Register NO", key: "register_no" },
+  { label: "S1 SGPA", key: "sgpa_s1" },
+  { label: "S2 SGPA", key: "sgpa_s2" },
+  { label: "S3 SGPA", key: "sgpa_s3" },
+  { label: "S4 SGPA", key: "sgpa_s4" },
+  { label: "S5 SGPA", key: "sgpa_s5" },
+  { label: "S6 SGPA", key: "sgpa_s6" },
+  { label: "S7 SGPA", key: "sgpa_s7" },
+  { label: "S8 SGPA", key: "sgpa_s8" },
+  { label: "CGPA", key: "cgpa" },
+  { label: "Current Backlogs", key: "current_backlogs" },
+  { label: "Backlog History", key: "backlog_history" },
+  { label: "Skills", key: "skills" },
+  { label: "Batch", key: "batch" },
+  { label: "Branch", key: "branch" },
 ];
 
-const columnNames = [
-  "firstName",
-  "lastName",
-  "email",
-  "dob",
-  "address",
-  "phone",
-  "gender",
-  "twelth_school",
-  "tenth_school",
-  "twelth_percentage",
-  "tenth_percentage",
-  "cgpa",
-  "skills",
-  "batch",
-  "branch",
-  "sgpa_s1",
-  "sgpa_s2",
-  "sgpa_s3",
-  "sgpa_s4",
-  "sgpa_s5",
-  "sgpa_s6",
-  "sgpa_s7",
-  "sgpa_s8",
-  "current_backlogs",
-  "backlog_history",
-  "register_no",
-  "adm_no",
-];
 const ExportData = () => {
   const [filterOpen, setFilterOpen] = useState(true);
   const axios = useAuthAxious();
@@ -92,6 +53,7 @@ const ExportData = () => {
   const [branches, setBranches] = useState([]);
   const [batches, setBatches] = useState([]);
   const [errors, setErrors] = useState({});
+  const csvLinkRef = useRef();
 
   const [filterOptions, setFilterOptions] = useState({
     requiredColumns: [
@@ -214,13 +176,16 @@ const ExportData = () => {
           : null,
       };
 
-      const errors = await validateFormData(filterSchema, formData);
-      setErrors(errors);
-      if (Object.keys(errors).length !== 0) {
+      const { data, errors: currentErrors } = await validateFormData(
+        filterSchema,
+        formData
+      );
+      setErrors(currentErrors || {});
+      if (currentErrors && Object.keys(currentErrors).length !== 0) {
         return false;
       }
 
-      const { response, err } = await filterStudentData(axios, filterOptions);
+      const { response, err } = await filterStudentData(axios, data);
       if (response) {
         const formatedData =
           response.data &&
@@ -232,7 +197,7 @@ const ExportData = () => {
         setStudentData(formatedData);
         return true;
       } else {
-        alert("Filter error");
+        alert("Filter error inside");
         console.error(err);
         return false;
       }
@@ -249,7 +214,7 @@ const ExportData = () => {
 
   const tableData = selectedBranchStudents.map((student) => {
     return filterOptions.requiredColumns
-      .map((column) => (student[column] ? student[column] : "-"))
+      .map((column) => (student[column] ? student[column] : " "))
       .filter((value) => value);
   });
 
@@ -267,9 +232,21 @@ const ExportData = () => {
   //       : false
   //   );
 
-  const tableColumns = filterOptions.requiredColumns.map((column) =>
-    column.split("_").join(" ")
+  const csvColumns = columns.filter(
+    (column) => filterOptions.requiredColumns.indexOf(column.key) > -1
   );
+
+  const csvData = selectedBranchStudents.map((student) => {
+    const formated = {};
+    csvColumns.map((column) => (formated[column.key] = student[column.key]));
+    return formated;
+  });
+
+  const tableColumns = csvColumns.map((column) => column.label);
+
+  // const tableColumns = filterOptions.requiredColumns.map((column) =>
+  //   column.split("_").join(" ")
+  // );
 
   return (
     <StyledExport>
@@ -284,10 +261,18 @@ const ExportData = () => {
           />
         </div>
         <div className="primary-btn">
+          <CSVLink
+            className="csv-button"
+            data={csvData}
+            headers={csvColumns}
+            ref={csvLinkRef}
+            filename="my-file.csv"
+          />
           <Button
             text="Export"
             onClick={(e) => {
               e.preventDefault();
+              csvLinkRef.current.link.click();
             }}
           />
         </div>
@@ -324,12 +309,12 @@ const ExportData = () => {
                 return columns;
               })()} */}
 
-              {columnNames.map((column) => (
+              {columns.map((column) => (
                 <CheckBox
-                  key={column}
-                  name={column}
-                  value={filterOptions.requiredColumns.indexOf(column) > -1}
-                  label={column}
+                  key={column.key}
+                  name={column.key}
+                  value={filterOptions.requiredColumns.indexOf(column.key) > -1}
+                  label={column.label}
                   onChange={handleColumnChange}
                 />
               ))}
