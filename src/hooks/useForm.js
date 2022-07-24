@@ -2,20 +2,24 @@ import { useState, useEffect } from "react";
 
 const validateFormData = async (schema, formData, options = {}) => {
   try {
-    await schema.validate(formData, { abortEarly: false, ...options });
-    return {};
+    const validatedData = await schema.validate(formData, {
+      abortEarly: false,
+      ...options,
+    });
+    return { data: validatedData };
   } catch (err) {
     const currentErrors = {};
     err.inner.forEach(({ path, message }) => {
       currentErrors[path] = message;
     });
-    return currentErrors;
+    return { errors: currentErrors };
   }
 };
 
 const validateFormDataSync = (schema, formData) => {
   try {
-    schema.validateSync(formData, { abortEarly: false });
+    const data = schema.validateSync(formData, { abortEarly: false });
+
     return {};
   } catch (err) {
     const currentErrors = {};
@@ -29,14 +33,21 @@ const validateFormDataSync = (schema, formData) => {
 const useForm = (initValue = {}, schema, activeFields = []) => {
   const [formData, setFormData] = useState(initValue);
   const [errors, setErrors] = useState({});
-  const requiredSchema = schema.pick(activeFields);
+  const requiredSchema = schema && schema.pick(activeFields);
 
   useEffect(() => {
-    if (Object.keys(errors).length !== 0) {
-      const currentErrors = validateFormDataSync(requiredSchema, formData);
-      setErrors(currentErrors);
-      console.log(currentErrors);
-    }
+    (async () => {
+      if (Object.keys(errors).length !== 0) {
+        const { errors: currentErrors, data } = await validateFormData(
+          requiredSchema,
+          formData
+        );
+
+        if (data) setFormData(data);
+
+        setErrors(currentErrors || {});
+      }
+    })();
 
     // Comment below disable the missing dependency warning
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -46,20 +57,21 @@ const useForm = (initValue = {}, schema, activeFields = []) => {
     setFormData(initValue);
   };
 
-  const onChange = (e) => {
-    const { name, value } = e.currentTarget;
+  const onChange = (e, targetObject = null) => {
+    const { name, value } = targetObject || e.currentTarget;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   const onSubmit = async (e, callback) => {
     e.preventDefault();
 
-    const errors = await validateFormData(schema, formData);
-    setErrors(errors);
+    const { errors, data } = await validateFormData(schema, formData);
+    const currentErrors = errors || {};
+    setErrors(currentErrors);
 
-    if (Object.keys(errors).length !== 0) return;
+    if (Object.keys(currentErrors).length !== 0) return;
 
-    const data = formData;
+    setFormData(data);
     return await callback(data);
   };
 
@@ -77,12 +89,14 @@ const useForm = (initValue = {}, schema, activeFields = []) => {
   };
 
   const onNextValidate = async (callback) => {
-    const errors = await validateFormData(requiredSchema, formData);
-    setErrors(errors);
+    const { errors, data } = await validateFormData(requiredSchema, formData);
+    const currentErrors = errors || {};
+    setErrors(currentErrors);
 
-    if (Object.keys(errors).length !== 0) return;
+    if (Object.keys(currentErrors).length !== 0) return;
 
-    callback();
+    setFormData(data);
+    callback(data);
   };
 
   return {
@@ -96,6 +110,7 @@ const useForm = (initValue = {}, schema, activeFields = []) => {
     validateFormDataSync,
     isSubmitReady,
     onNextValidate,
+    setErrors,
   };
 };
 
