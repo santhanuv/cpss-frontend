@@ -5,7 +5,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import userLogout from "../../utility/userLogout";
 
-const Avatar = ({ name = "Santhanu" }) => {
+const Avatar = ({ name = "Santhanu", ...extraProps }) => {
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
 
@@ -19,7 +19,7 @@ const Avatar = ({ name = "Santhanu" }) => {
   };
 
   return (
-    <Styles>
+    <Styles {...extraProps}>
       <StyledWrapper onClick={handleOpen}>
         <StyledContentWrapper>{name.charAt(0)}</StyledContentWrapper>
         {open ? <StyledIconUp /> : <StyledIconDown />}
