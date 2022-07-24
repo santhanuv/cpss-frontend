@@ -6,7 +6,12 @@ const Styled = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 60px;
+  padding: 30px;
+
+  .avatar {
+    align-self: flex-end;
+    margin-bottom: 25px;
+  }
 
   .register-card {
     width: 90%;
@@ -25,8 +30,28 @@ const Styled = styled.div`
     width: 50%;
   }
 
+  .content-box .left-box p {
+    ${({
+      theme: {
+        colors,
+        typo: { para },
+      },
+    }) => `
+      color: ${colors.background};
+      font-size: ${para.regular.fontSize};
+      line-height: ${para.regular.lineHeight}
+    `}
+  }
+
+  .content-box .left-box .subtext {
+    margin-top: 8px;
+    font-size: 18px;
+    font-weight: 500;
+    text-align: center;
+  }
+
   .content-box .left-box h1 {
-    margin-bottom: 60px;
+    margin-bottom: 30px;
     text-align: center;
     ${({
       theme: {
@@ -75,6 +100,7 @@ const Styled = styled.div`
   .content-box form {
     padding: 30px;
     flex-grow: 1;
+    max-width: 480px;
   }
 
   .content-box form h3 {

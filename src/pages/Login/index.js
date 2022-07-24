@@ -15,6 +15,7 @@ import { createSession } from "../../api/session";
 import useAuth from "../../hooks/useAuth";
 import { useNavigate, useLocation } from "react-router-dom";
 import loginSchema from "./login.schema";
+import AlertDialog from "../../components/AlertDialog";
 
 const initForm = {
   email: "",
@@ -24,6 +25,16 @@ const initForm = {
 const Login = () => {
   const [btnActive, setBtnActive] = useState(false);
   const { auth, setAuth } = useAuth();
+  const [alertOpen, setAlertOpen] = useState({
+    state: false,
+    status: false,
+    msg: "",
+  });
+
+  const handleAlertClose = () => {
+    setAlertOpen((prev) => ({ ...prev, state: false }));
+  };
+
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -53,8 +64,13 @@ const Login = () => {
         navigate(from || to, { replace: true });
         return true;
       } else {
-        if (err.response.status === 401) alert("Invalid email or password.");
-        else alert("Server Error!");
+        if (err.response.status === 401)
+          setAlertOpen({
+            state: true,
+            status: false,
+            msg: "Invalid email and password",
+          });
+        else setAlertOpen({ state: true, status: false, msg: "Sever Error" });
         console.error(err);
       }
     } catch (err) {
@@ -91,6 +107,12 @@ const Login = () => {
 
   return (
     <Wrapper>
+      <AlertDialog
+        state={alertOpen.state}
+        status={alertOpen.status}
+        msg={alertOpen.msg}
+        onBtnClick={handleAlertClose}
+      />
       <Navbar links={linksList} />
       <ContentWrapper>
         <LoginCard>

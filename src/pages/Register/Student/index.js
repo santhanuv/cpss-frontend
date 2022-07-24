@@ -11,6 +11,11 @@ import { getAllBatches } from "../../../api/batch";
 import { getAllBranches } from "../../../api/branch";
 import ProgressBar from "../../../components/ProgressBar";
 import Button from "../../../components/Button";
+import Dropdown from "../../../components/Dropdown";
+import Avatar from "../../../components/Avatar";
+import AlertDialog from "../../../components/AlertDialog";
+import { FiCheckCircle } from "react-icons/fi";
+import { MdOutlineError } from "react-icons/md";
 
 const initialFormData = {
   studentID: "",
@@ -43,13 +48,7 @@ const initialFormData = {
 const fieldsInStep = [
   ["gender", "address", "phone", "dob"],
   ["regNO", "admNO", "batch", "branch"],
-  [
-    "skills",
-    "twelthSchool",
-    "twelthPercentage",
-    "tenthSchool",
-    "tenthPercentage",
-  ],
+  ["twelthSchool", "twelthPercentage", "tenthSchool", "tenthPercentage"],
   [
     "sgpaS1",
     "sgpaS2",
@@ -70,6 +69,12 @@ const StudentRegister = () => {
   const [branches, setBranches] = useState([]);
   const [batches, setBatches] = useState([]);
   const [activeBtn, setActiveBtn] = useState(false);
+  const [alertOpen, setAlertOpen] = useState({
+    state: false,
+    status: false,
+    msg: "",
+  });
+
   const navigate = useNavigate();
   const axios = useAuthAxios();
   const {
@@ -79,6 +84,7 @@ const StudentRegister = () => {
     onSubmit,
     onNextValidate,
     isSubmitReady,
+    setErrors,
   } = useForm(initialFormData, studentRegisterSchema, fieldsInStep[formState]);
 
   useEffect(() => {
@@ -118,17 +124,37 @@ const StudentRegister = () => {
 
   const createStudent = async (data) => {
     try {
-      console.log(data);
       const { response, err } = await registerStudent(axios, data);
 
       if (response) {
         console.log(response);
-        if (response.status === 200) navigate("/student", { replace: true });
-      } else {
-        console.error(err);
+        if (response.status === 201) {
+          setAlertOpen({
+            state: true,
+            status: true,
+            msg: "Your profile has been successfully registered.",
+          });
+        }
+      } else if (err) {
+        const errorMsg = err.response.data.msg;
+        const value = err.response.data.value;
+
+        const key = Object.keys(formData).find(
+          (key) => formData[key] === value
+        );
+        if (key) {
+          const formIndex = fieldsInStep
+            .map((fields, index) => (fields.indexOf(key) >= 0 ? index : -1))
+            .filter((value) => value !== -1)[0];
+
+          setErrors((prev) => ({ ...prev, [key]: errorMsg }));
+          formIndex >= 0 && setFormState(formIndex);
+        }
+        setAlertOpen({ state: true, status: false, msg: errorMsg });
+        console.error(err.response);
       }
     } catch (err) {
-      console.log(err);
+      console.log(err.response.msg);
     }
   };
 
@@ -148,6 +174,17 @@ const StudentRegister = () => {
 
   return (
     <Styled>
+      <AlertDialog
+        state={alertOpen.state}
+        status={alertOpen.status}
+        msg={alertOpen.msg}
+        onBtnClick={() => {
+          if (alertOpen.status) navigate("/student", { replace: true });
+          else setAlertOpen((prev) => ({ ...prev, state: false }));
+        }}
+      />
+
+      <Avatar className="avatar" />
       <div className="register-card">
         <div className="progress-bar-wrapper">
           <ProgressBar
@@ -157,13 +194,29 @@ const StudentRegister = () => {
         </div>
         <div className="content-box">
           <div className="left-box">
-            <h1>Student Profile</h1>
+            <h1>
+              Set Your Profile
+              <p className="subtext">Welcome!!</p>
+            </h1>
+            <p>
+              Please Enter the following details to set your Student Profile.
+            </p>
           </div>
           <form onSubmit={(e) => onSubmit(e, createStudent)}>
             {formState === 0 && (
               <div className="personal">
                 <h2>Personal</h2>
-                <SelectInput
+                <Dropdown
+                  label="Gender"
+                  options={[
+                    { name: "Male", value: "male" },
+                    { name: "Female", value: "female" },
+                    { name: "Other", value: "other" },
+                  ]}
+                  errMsg={errors["gender"]}
+                  {...register("gender")}
+                />
+                {/* <SelectInput
                   label="Gender"
                   {...register("gender")}
                   options={[
@@ -172,7 +225,7 @@ const StudentRegister = () => {
                     { name: "Other", value: "other" },
                   ]}
                   errMsg={errors["gender"]}
-                />
+                /> */}
                 <TextField
                   label="Address"
                   errorMsg={errors["address"]}
@@ -205,15 +258,21 @@ const StudentRegister = () => {
                   errorMsg={errors["admNO"]}
                   {...register("admNO")}
                 />
-                <SelectInput
+                <Dropdown
                   label="Batch"
-                  options={batches.map((batch) => ({ value: batch }))}
+                  options={batches.map((batch) => ({
+                    name: batch,
+                    value: batch,
+                  }))}
                   {...register("batch")}
                   errMsg={errors["batch"]}
                 />
-                <SelectInput
+                <Dropdown
                   label="Branch"
-                  options={branches.map((branch) => ({ value: branch }))}
+                  options={branches.map((branch) => ({
+                    name: branch,
+                    value: branch,
+                  }))}
                   {...register("branch")}
                   errMsg={errors["branch"]}
                 />

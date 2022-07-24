@@ -1,6 +1,13 @@
-import { object, string, date, number } from "yup";
+import { object, string, date, number, addMethod } from "yup";
 import { subYears } from "date-fns";
 const minAgeYear = 18;
+
+const gpaRegex = /^\s*$|^\d{1}\.\d{1,2}$|^\d{1}$|^10(.0{1,2})?$/;
+const backlogRegex = /\d{1,2}/;
+
+addMethod(string, "removeEmptyValue", function () {
+  return this.transform((value) => (value ? value : undefined));
+});
 
 const studentRegisterSchema = object().shape({
   gender: string()
@@ -28,22 +35,61 @@ const studentRegisterSchema = object().shape({
   twelthSchool: string().required("Twelth School is required."),
   twelthPercentage: string()
     .required("Twelth Percentage is required.")
-    .matches(/\d{1,3}\.\d{1,2}/, "Enter valid percentage score"),
+    .matches(
+      /^\s*\d{1,2}\.\d{1,2}\s*$|^\d{1,2}$|^[1]\d{1,2}$/,
+      "Enter valid percentage score"
+    ),
   tenthSchool: string().required("Tenth School is required."),
   tenthPercentage: string()
     .required("Tenth Percentage is required.")
-    .matches(/\d{1,3}\.\d{1,2}/, "Enter valid percentage score"),
-  sgpaS1: string().matches(/\d{1,2}\.\d{1,2}|\d{1}/, "Enter a valid score"),
-  sgpaS2: string().matches(/\d{1,2}\.\d{1,2}|\d{1}/, "Enter a valid score"),
-  sgpaS3: string().matches(/\d{1,2}\.\d{1,2}|\d{1}/, "Enter a valid score"),
-  sgpaS4: string().matches(/\d{1,2}\.\d{1,2}|\d{1}/, "Enter a valid score"),
-  sgpaS5: string().matches(/\d{1,2}\.\d{1,2}|\d{1}/, "Enter a valid score"),
-  sgpaS6: string().matches(/\d{1,2}\.\d{1,2}|\d{1}/, "Enter a valid score"),
-  sgpaS7: string().matches(/\d{1,2}\.\d{1,2}|\d{1}/, "Enter a valid score"),
-  sgpaS8: string().matches(/\d{1,2}\.\d{1,2}|\d{1}/, "Enter a valid score"),
-  cgpa: string().matches(/\d{1,2}\.\d{1,2}|\d{1}/, "Enter a valid score"),
-  currentBacklogs: string().matches(/\d{1,2}/, "Should be a number"),
-  backlogHistory: string().matches(/\d{1,2}/, "Should be a number"),
+    .matches(
+      /^\s*\d{1,2}\.\d{1,2}\s*$|^\d{1,2}$|^[1]\d{1,2}$/,
+      "Enter valid percentage score"
+    ),
+  sgpaS1: string()
+    .matches(gpaRegex, "Enter a valid score")
+    .removeEmptyValue()
+    .default("0"),
+  sgpaS2: string()
+    .matches(gpaRegex, "Enter a valid score")
+    .removeEmptyValue()
+    .default("0"),
+  sgpaS3: string()
+    .matches(gpaRegex, "Enter a valid score")
+    .removeEmptyValue()
+    .default("0"),
+  sgpaS4: string()
+    .matches(gpaRegex, "Enter a valid score")
+    .removeEmptyValue()
+    .default("0"),
+  sgpaS5: string()
+    .matches(gpaRegex, "Enter a valid score")
+    .removeEmptyValue()
+    .default("0"),
+  sgpaS6: string()
+    .matches(gpaRegex, "Enter a valid score")
+    .removeEmptyValue()
+    .default("0"),
+  sgpaS7: string()
+    .matches(gpaRegex, "Enter a valid score")
+    .removeEmptyValue()
+    .default("0"),
+  sgpaS8: string()
+    .matches(gpaRegex, "Enter a valid score")
+    .removeEmptyValue()
+    .default("0"),
+  cgpa: string()
+    .matches(gpaRegex, "Enter a valid score")
+    .removeEmptyValue()
+    .default("0"),
+  currentBacklogs: string()
+    .matches(backlogRegex, "Should be a number")
+    .removeEmptyValue()
+    .default("0"),
+  backlogHistory: string()
+    .matches(backlogRegex, "Should be a number")
+    .removeEmptyValue()
+    .default("0"),
 });
 
 export default studentRegisterSchema;

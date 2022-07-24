@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import Styled from "./Styled";
 import TextField from "../../../components/TextField";
-import SelectInput from "../../../components/SelectInput";
+import Dropdown from "../../../components/Dropdown";
 import { getAllBatches } from "../../../api/batch";
 import { getAllBranches } from "../../../api/branch";
 import useForm from "../../../hooks/useForm";
@@ -9,10 +9,17 @@ import advisorRegisterSchema from "./advisorRegisterSchema";
 import useAuthAxios from "../../../hooks/useAuthAxios";
 import { registerAdvisor } from "../../../api/advisory";
 import { useNavigate } from "react-router-dom";
+import Button from "../../../components/Button";
+import AlertDialog from "../../../components/AlertDialog";
 
 const AdvisorRegister = () => {
   const [branches, setBranches] = useState([]);
   const [batches, setBatches] = useState([]);
+  const [alertOpen, setAlertOpen] = useState({
+    state: false,
+    status: false,
+    msg: "",
+  });
   const navigate = useNavigate();
   const axios = useAuthAxios();
   const { register, onSubmit, errors } = useForm(
@@ -26,12 +33,19 @@ const AdvisorRegister = () => {
 
       if (response) {
         console.log(response.data);
-        alert("You need to be approved by advisors");
-        navigate("/logout");
+        setAlertOpen({
+          state: true,
+          status: true,
+          msg: "You are successfully registered. Please wait for the approval of admin.",
+        });
       } else if (err) {
         console.error(err);
-        if (err.response.status === 409)
-          alert(`Advisor for ${data.branch} ${data.batch} already exits.`);
+        if (err.response.status === 422)
+          setAlertOpen({
+            state: true,
+            status: false,
+            msg: "Advisor already exits for the given branch and batch.",
+          });
       }
     } catch (err) {
       console.error(err);
@@ -71,29 +85,42 @@ const AdvisorRegister = () => {
 
   return (
     <Styled>
-      <h1>Advisor Registeration</h1>
+      <AlertDialog
+        state={alertOpen.state}
+        status={alertOpen.status}
+        msg={alertOpen.msg}
+        onBtnClick={() => {
+          if (alertOpen.status) navigate("/logout");
+          else setAlertOpen((prev) => ({ ...prev, state: false }));
+        }}
+      />
       <div className="register-card">
+        <div className="left-box">
+          <h1>Advisor Registeration</h1>
+          <p>Please Enter the following details to register.</p>
+        </div>
         <form onSubmit={(e) => onSubmit(e, postData)}>
           <div className="student">
             {/* <TextField label="Employee No" errorMsg="" /> */}
-            <SelectInput
+            <Dropdown
               label="Batch"
               errMsg={errors["batch"]}
               {...register("batch")}
-              options={batches.map((batch) => ({ value: batch }))}
+              options={batches.map((batch) => ({ name: batch, value: batch }))}
             />
-            <SelectInput
+            <Dropdown
               label="Branch"
               {...register("branch")}
               errMsg={errors["branch"]}
-              options={branches.map((branch) => ({ value: branch }))}
+              options={branches.map((branch) => ({
+                name: branch,
+                value: branch,
+              }))}
             />
           </div>
 
           <div className="action-btns">
-            <button type="submit" id="submit-btn">
-              Submit
-            </button>
+            <Button text="Submit" />
           </div>
         </form>
       </div>

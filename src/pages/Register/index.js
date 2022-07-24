@@ -4,12 +4,13 @@ import StyledRegister from "./Register.Styled";
 import Wrapper from "../../components/Wrapper";
 import TextField from "../../components/TextField";
 import useForm from "../../hooks/useForm";
-import SelectInput from "../../components/SelectInput";
+import Dropdown from "../../components/Dropdown";
 import Link from "../../components/Link";
 import registerSchema from "./register.schema";
 import { registerUser } from "../../api/user";
 import { useNavigate } from "react-router-dom";
 import Button from "../../components/Button";
+import AlertDialog from "../../components/AlertDialog";
 
 const linksList = [
   {
@@ -54,8 +55,20 @@ const roleOptions = [
 
 const Regsiter = () => {
   const [btnActive, setBtnActive] = useState(false);
-  const { register, onSubmit, errors, resetFormData, formData, isSubmitReady } =
-    useForm(formInitValue, registerSchema);
+  const [alertOpen, setAlertOpen] = useState({
+    state: false,
+    status: false,
+    msg: "",
+  });
+  const {
+    register,
+    onSubmit,
+    errors,
+    resetFormData,
+    formData,
+    isSubmitReady,
+    setErrors,
+  } = useForm(formInitValue, registerSchema);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -80,13 +93,25 @@ const Regsiter = () => {
       });
 
       if (response) {
-        console.log(response);
+        setAlertOpen({
+          state: true,
+          status: true,
+          msg: "You are successfully registered.",
+        });
         resetFormData();
-        navigate(`/login`);
       }
 
       if (err) {
-        console.log(err);
+        const errData = err.response.data;
+        if (errData) {
+          if (Object.keys(formData).indexOf(errData.field.key) >= 0)
+            setErrors((prev) => ({
+              ...prev,
+              [errData.field?.key]: errData.msg,
+            }));
+
+          setAlertOpen({ state: true, status: false, msg: errData.msg });
+        }
       }
     } catch (err) {
       console.log(err);
@@ -95,6 +120,15 @@ const Regsiter = () => {
 
   return (
     <Wrapper>
+      <AlertDialog
+        state={alertOpen.state}
+        status={alertOpen.status}
+        msg={alertOpen.msg}
+        onBtnClick={() => {
+          if (alertOpen.status) navigate(`/login`);
+          else setAlertOpen((value) => ({ ...value, state: false }));
+        }}
+      />
       <StyledRegister>
         <Navbar links={linksList} />
         <div className="content">
@@ -108,7 +142,7 @@ const Regsiter = () => {
               </p>
             </div>
             <form className="form-box" onSubmit={(e) => onSubmit(e, postData)}>
-              <SelectInput
+              <Dropdown
                 options={roleOptions}
                 {...register("role")}
                 label="Role"
@@ -159,3 +193,4 @@ const Regsiter = () => {
 };
 
 export default Regsiter;
+export { linksList };

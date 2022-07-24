@@ -31,6 +31,7 @@ const Styles = styled.div`
 
   .msg .text {
     font-size: 24px;
+    text-align: center;
   }
 
   .links {
@@ -56,9 +57,9 @@ const NotApproved = () => {
         <div className="msg">
           <MdError className="icon" />
           <span className="text">
-            You are not Approved By Admin.
+            You are not yet approved by Admin.
             <br />
-            Contact Admin to get Approved
+            Contact Admin to get approved
           </span>
         </div>
       </div>
