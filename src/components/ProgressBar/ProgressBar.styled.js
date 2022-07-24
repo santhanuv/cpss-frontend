@@ -1,5 +1,4 @@
 import styled from "@emotion/styled";
-import tickMark from "../../assets/images/tick-mark.svg";
 
 const StyledProgressBar = styled.div`
   width: fit-content;
