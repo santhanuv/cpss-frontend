@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 
-const validateFormData = async (schema, formData) => {
+const validateFormData = async (schema, formData, options = {}) => {
   try {
-    await schema.validate(formData, { abortEarly: false });
+    await schema.validate(formData, { abortEarly: false, ...options });
     return {};
   } catch (err) {
     const currentErrors = {};
@@ -26,14 +26,16 @@ const validateFormDataSync = (schema, formData) => {
   }
 };
 
-const useForm = (initValue = {}, schema) => {
+const useForm = (initValue = {}, schema, activeFields = []) => {
   const [formData, setFormData] = useState(initValue);
   const [errors, setErrors] = useState({});
+  const requiredSchema = schema.pick(activeFields);
 
   useEffect(() => {
     if (Object.keys(errors).length !== 0) {
-      const currentErrors = validateFormDataSync(schema, formData);
+      const currentErrors = validateFormDataSync(requiredSchema, formData);
       setErrors(currentErrors);
+      console.log(currentErrors);
     }
 
     // Comment below disable the missing dependency warning
@@ -74,6 +76,15 @@ const useForm = (initValue = {}, schema) => {
     return true;
   };
 
+  const onNextValidate = async (callback) => {
+    const errors = await validateFormData(requiredSchema, formData);
+    setErrors(errors);
+
+    if (Object.keys(errors).length !== 0) return;
+
+    callback();
+  };
+
   return {
     onChange,
     onSubmit,
@@ -84,6 +95,7 @@ const useForm = (initValue = {}, schema) => {
     validateFormData,
     validateFormDataSync,
     isSubmitReady,
+    onNextValidate,
   };
 };
 
