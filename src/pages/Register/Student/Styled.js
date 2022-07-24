@@ -2,46 +2,30 @@ import styled from "@emotion/styled";
 
 const Styled = styled.div`
   height: fit-content;
-
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   padding: 60px;
 
-  .progress-container {
-    width: 100%;
-    margin-bottom: 25px;
+  .register-card {
+    width: 90%;
+    height: fit-content;
+    min-height: 560px;
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    position: relative;
-  }
-
-  .progress-container .step {
-    z-index: 5;
-    background-color: lightgrey;
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
+    gap: 20px;
   }
 
-  .step-2::before {
-    content: "";
-    position: absolute;
-    width: 100%;
-    height: 4px;
-    background-color: red;
+  .progress-bar-wrapper {
+    margin-bottom: 80px;
+    min-height: fit-content;
+    width: 50%;
   }
 
-  .progress {
-    position: absolute;
-    height: 4px;
-    width: 100%;
-    z-index: -1;
-    background-color: lightgray;
-  }
-
-  h1 {
+  .content-box .left-box h1 {
     margin-bottom: 60px;
     text-align: center;
     ${({
@@ -50,9 +34,9 @@ const Styled = styled.div`
         colors,
       },
     }) => `
-      color: ${colors.textPrimary};
-      font-size: ${title.largePlus.fontSize};
-      font-weight: ${title.largePlus.fontWeight};
+      color: ${colors.background};
+      font-size: ${title.regularPlus.fontSize};
+      font-weight: ${title.regularPlus.fontWeight};
     `}
   }
 
@@ -70,37 +54,72 @@ const Styled = styled.div`
     `}
   }
 
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-
-  .register-card {
-    width: 800px;
-    height: fit-content;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-  }
-
-  form {
-    width: 80%;
+  .content-box {
+    width: 100%;
     box-shadow: rgba(0, 0, 0, 0.2) 0px 12px 28px 0px,
       rgba(0, 0, 0, 0.1) 0px 2px 4px 0px,
       rgba(255, 255, 255, 0.05) 0px 0px 0px 1px inset;
     border-radius: 10px;
+    display: flex;
+    max-width: 800px;
+  }
+
+  .content-box .left-box {
+    border-radius: 10px 0 0 10px;
     padding: 30px;
+    width: 40%;
+    background-color: ${({ theme: { colors } }) => colors.primary};
+    flex-shrink: 0;
+  }
+
+  .content-box form {
+    padding: 30px;
+    flex-grow: 1;
+  }
+
+  .content-box form h3 {
+    margin-bottom: 25px;
+    ${({
+      theme: {
+        typo: { label },
+        colors,
+      },
+    }) => `
+      color: ${colors.textPrimary};
+      font-size: ${label.regular.fontSize};
+      font-weight: ${label.regular.fontWeight};
+    `}
   }
 
   .semester .set {
     display: flex;
-    gap: 30px;
+    gap: 20px;
     justify-content: space-between;
     input {
       min-width: 0px;
     }
   }
 
+  .action-btns {
+    display: flex;
+    margin-top: 40px;
+  }
+
+  .control-btn {
+    width: 150px;
+    display: block;
+    margin: 0;
+  }
+
+  .control-btn.left-btn {
+    margin-right: auto;
+  }
+
+  .control-btn.right-btn {
+    margin-left: auto;
+  }
+
+  /* 
   .action-btns {
     display: flex;
     margin-top: 50px;
@@ -136,21 +155,21 @@ const Styled = styled.div`
     border-radius: 4px;
 
     ${({
-      theme: {
-        colors,
-        typo: { label },
-      },
-    }) => `
+    theme: {
+      colors,
+      typo: { label },
+    },
+  }) => `
       font-size: ${label.regularPlus.fontSize};
       font-weight: ${label.regularPlus.fontWeight};
       color: ${colors.textPrimary};
 
       :hover {
         color: ${colors.background};
-        background-color: ${colors.complimentHover}
+        background-color: ${colors.complimentHover};
       }
     `}
-  }
+  } */
 `;
 
 export default Styled;
