@@ -13,6 +13,7 @@ const StyledCheckBox = styled.div`
   }
 
   input {
+    cursor: pointer;
     display: block;
     border: 1px solid black;
     width: 18px;
