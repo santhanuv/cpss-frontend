@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import Button from "../../../components/Button";
 import Table from "../../../components/Table";
 import Styles from "./Profile.Styled";
 import { MdEdit, MdVerifiedUser, MdOutlineHourglassTop } from "react-icons/md";
@@ -14,6 +15,29 @@ import SemesterGrades from "./SemesterGrades/SemesterGrades";
 import EditBacklog from "./BacklogInfo/EditBacklog";
 import EditSkills from "./Skills/EditSkills";
 import studentRegisterSchema from "../../Register/Student/student.schema";
+import { CSVLink } from "react-csv";
+
+const csvHeaders = [
+  {label: "First Name", key: "first_name"},
+  {label: "Last Name", key: "last_name"},
+  {label: "DOB", key: "dob"},
+  {label: "Gender", key: "gender"},
+  {label: "Address", key: "address"},
+  {label: "Phone", key: "phone"},
+  {label: "Email", key: "email"},
+  {label: "Register NO", key: "register_no"},
+  {label: "Adm NO", key: "adm_no"},
+  {label: "Batch", key: "batch"},
+  {label: "Branch", key: "branch"},
+  {label: "10th School", key: "tenth_school"},
+  {label: "12th School", key: "twelth_school"},
+  {label: "10th Percentage", key: "tenth_percentage"},
+  {label: "12th Percentage", key: "twelth_percentage"},
+  {label: "CGPA", key: "cgpa"},
+  {label: "Current Backlogs", key: "current_backlogs"},
+  {label: "Backlog History", key: "backlog_history"},
+  {label: "Skills", key: "skills"}
+]
 
 const initialEditState = {
   basic: false,
@@ -44,11 +68,18 @@ const MyData = () => {
   const [editMode, setEditMode] = useState(initialEditState);
   const [studentData, setStudentData] = useState({});
   const axios = useAuthAxios();
+  const csvRef = useRef();
   const navigate = useNavigate();
 
   const handleEditMode = (section, ref = null) => {
     setEditMode((prev) => ({ ...prev, [section]: !prev[section] }));
   };
+
+  const requiredData = {}
+  Object.keys(studentData).forEach(key => {
+    requiredData[key] = studentData[key];
+  })
+  const csvData = [requiredData]
 
   useEffect(() => {
     //fetch student data
@@ -121,6 +152,7 @@ const MyData = () => {
 
   return (
     <Styles>
+      <CSVLink data={csvData} headers={csvHeaders} filename={`${studentData["first_name"]} ${studentData["last_name"]}.csv`} ref={csvRef} />
       {editMode.basic && (
         <EditBasic
           formSchema={studentRegisterSchema}
@@ -215,6 +247,7 @@ const MyData = () => {
             Error
           </span>
         )}
+        <Button text="Export" onClick={() => { csvRef.current.link.click()}} className="export-btn" />
       </h2>
       <div className="selector">
         <button
