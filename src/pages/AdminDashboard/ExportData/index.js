@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import Button from "../../../components/Button";
 import CheckBox from "../../../components/CheckBox";
 import SelectInput from "../../../components/SelectInput";
-import Table from "../../../components/Table";
+import Table from "../../../components/Table/Table";
 import TextField from "../../../components/TextField";
 import useForm from "../../../hooks/useForm";
 import StyledExport from "./Export.Styled";
@@ -283,7 +283,7 @@ const ExportData = () => {
           No Students With Applied Filters
         </div>
       ) : (
-        <Table colNames={tableColumns} data={tableData} />
+        <Table columns={csvColumns} data={csvData} />
       )}
       {filterOpen && (
         <div className="filter-box">
