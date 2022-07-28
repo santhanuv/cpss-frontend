@@ -38,9 +38,7 @@ const StyledHome = styled.div`
       background-color: ${colors.background};
       font-size: ${regular.fontSize};
     `};
-  }
 
-  .selector .approved {
     :hover {
       ${({
         theme: {
@@ -50,45 +48,27 @@ const StyledHome = styled.div`
           },
         },
       }) => `
-      color: ${colors.background};
-      background-color: ${colors.complimentary};
-      font-weight: ${regularPlus.fontWeight};
+        color: ${colors.textPrimary};
+        background-color: ${colors.lightGrey};
+        font-weight: ${regularPlus.fontWeight};
     `};
     }
   }
 
-  .selector .updated {
-    :hover {
-      ${({
-        theme: {
-          colors,
-          typo: {
-            label: { regularPlus },
-          },
+  .selector button.active {
+    ${({
+      theme: {
+        colors,
+        typo: {
+          label: { regular },
         },
-      }) => `
+      },
+    }) => `
       color: ${colors.background};
-      background-color: #ae8d0e;
-      font-weight: ${regularPlus.fontWeight};
+      border: 1px solid ${colors.grey};
+      background-color: ${colors.primary};
+      font-size: ${regular.fontSize};
     `};
-    }
-  }
-
-  .selector .rejected {
-    :hover {
-      ${({
-        theme: {
-          colors,
-          typo: {
-            label: { regularPlus },
-          },
-        },
-      }) => `
-      color: ${colors.background};
-      background-color: ${colors.error};
-      font-weight: ${regularPlus.fontWeight};
-    `};
-    }
   }
 
   .icon {
@@ -125,6 +105,15 @@ const StyledHome = styled.div`
     gap: 15px;
     font-size: 22px;
     color: ${({ theme: { colors } }) => colors.error};
+  }
+
+  .done-msg.rejected {
+    display: flex;
+    align-items: center;
+    padding: 20px 0px;
+    gap: 15px;
+    font-size: 22px;
+    color: ${({ theme: { colors } }) => colors.complimentary};
   }
 
   .done-msg .icon {

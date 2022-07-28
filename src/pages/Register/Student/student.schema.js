@@ -4,6 +4,7 @@ const minAgeYear = 18;
 
 const gpaRegex = /^\s*$|^\d{1}\.\d{1,2}$|^\d{1}$|^10(.0{1,2})?$/;
 const backlogRegex = /\d{1,2}/;
+const percentageRegex = /^\s*\d{1,2}\.\d{1,2}\s*$|^\d{1,2}$|^100(\.[0]{1,2})?$/;
 
 addMethod(string, "removeEmptyValue", function () {
   return this.transform((value) => (value ? value : undefined));
@@ -35,17 +36,11 @@ const studentRegisterSchema = object().shape({
   twelthSchool: string().required("Twelth School is required."),
   twelthPercentage: string()
     .required("Twelth Percentage is required.")
-    .matches(
-      /^\s*\d{1,2}\.\d{1,2}\s*$|^\d{1,2}$|^[1]\d{1,2}$/,
-      "Enter valid percentage score"
-    ),
+    .matches(percentageRegex, "Enter valid percentage score"),
   tenthSchool: string().required("Tenth School is required."),
   tenthPercentage: string()
     .required("Tenth Percentage is required.")
-    .matches(
-      /^\s*\d{1,2}\.\d{1,2}\s*$|^\d{1,2}$|^[1]\d{1,2}$/,
-      "Enter valid percentage score"
-    ),
+    .matches(percentageRegex, "Enter valid percentage score"),
   sgpaS1: string()
     .matches(gpaRegex, "Enter a valid score")
     .removeEmptyValue()

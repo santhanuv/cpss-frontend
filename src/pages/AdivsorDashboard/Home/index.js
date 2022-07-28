@@ -71,7 +71,7 @@ const Home = () => {
       (student) => student.status === studentStatus
     );
     setStudentsToShow(filteredStudents);
-  }, [studentStatus]);
+  }, [studentStatus, advisoryStudents]);
 
   const headCols = [
     "#",
@@ -112,13 +112,21 @@ const Home = () => {
       />
       <h2>Advisory Students</h2>
       <div className="selector">
-        <button id="approved" onClick={handleStatusChange}>
+        <button
+          id="approved"
+          onClick={handleStatusChange}
+          className={`approved ${studentStatus === "approved" ? "active" : ""}`}
+        >
           Approved
         </button>
-        <button id="updated" onClick={handleStatusChange}>
+        {/* <button id="updated" onClick={handleStatusChange}>
           Updated
-        </button>
-        <button id="rejected" onClick={handleStatusChange}>
+        </button> */}
+        <button
+          id="rejected"
+          onClick={handleStatusChange}
+          className={`rejected ${studentStatus === "rejected" ? "active" : ""}`}
+        >
           Rejected
         </button>
       </div>
