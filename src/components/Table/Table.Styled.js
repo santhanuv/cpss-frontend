@@ -5,7 +5,6 @@ const StyledTable = styled.div`
   overflow: auto;
 
   table {
-    width: 100%;
     border-collapse: collapse;
   }
 
@@ -36,7 +35,23 @@ const StyledTable = styled.div`
     padding: 12px 16px;
   }
 
+  th {
+    position: relative;
+  }
+
+  .resizer {
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 100%;
+    width: 10px;
+    cursor: col-resize;
+    user-select: none;
+    touch-action: none;
+  }
+
   td,
+  th,
   thead tr {
     border: 1px solid lightgrey;
   }
