@@ -96,7 +96,7 @@ const AdvisorRegister = () => {
       />
       <div className="register-card">
         <div className="left-box">
-          <h1>Advisor Registeration</h1>
+          <h1>Advisor Registration</h1>
           <p>Please Enter the following details to register.</p>
         </div>
         <form onSubmit={(e) => onSubmit(e, postData)}>
