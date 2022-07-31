@@ -1,6 +1,6 @@
 import React from "react";
 import Styles from "./Home.Styled";
-import Table from "../../../components/Table";
+import Table from "../../../components/Table/Table";
 
 const headCols = ["#", "Field", "New", "Old", "Updated On", "Status"];
 

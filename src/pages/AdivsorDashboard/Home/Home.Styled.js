@@ -98,7 +98,7 @@ const StyledHome = styled.div`
   }
 
   .done-msg.approved,
-  .done-msg.updated {
+  .done-msg.updated, .done-msg.rejected {
     display: flex;
     align-items: center;
     padding: 20px 0px;

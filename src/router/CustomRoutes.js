@@ -38,7 +38,7 @@ const CustomRoutes = () => {
               <Route element={<Dashboard />}>
                 <Route element={<StudentDashboard />}>
                   <Route index={true} element={<StudentProfile />} />
-                  {/* <Route path="home" element={<StudentHome />} /> */}
+                  <Route path="home" element={<StudentHome />} />
                 </Route>
               </Route>
             </Route>

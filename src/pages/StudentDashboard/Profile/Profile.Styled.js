@@ -9,6 +9,11 @@ const Styles = styled.div`
     align-items: center;
   }
 
+  .export-btn {
+    width: 200px;
+    margin-left: auto;
+  }
+
   .my-status span {
     display: flex;
     gap: 8px;
