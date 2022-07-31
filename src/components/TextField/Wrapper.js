@@ -31,22 +31,10 @@ const Wrapper = styled.div`
   }
 
   .input-box input {
+    flex: 1;
     background-color: ${({ theme }) => theme.colors.background};
-    ${({
-      type,
-      theme: {
-        colors: { complimentHover },
-      },
-    }) =>
-      type !== "email"
-        ? `
-      width: 100%;
-      :focus {
-        outline: 1.5px solid ${complimentHover};
-      }
-    `
-        : `border: none; outline: none;`}
-
+    border: none;
+    outline: none;
     ${({ type, showDomain }) =>
       type === "email" && !showDomain ? "width: 100%;" : null}
     border: none;
@@ -74,6 +62,17 @@ const Wrapper = styled.div`
   .input-box .domain {
     margin-right: 16px;
     color: #4c4a4a;
+  }
+
+  .input-box .password-btn {
+    border: none;
+    background: none;
+    cursor: pointer;
+    padding: 12px 16px;
+  }
+
+  .input-box .password-btn .icon {
+    font-size: 18px;
   }
 
   .error {
