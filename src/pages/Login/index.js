@@ -134,8 +134,10 @@ const Login = () => {
               <TextField
                 label="Email"
                 type="email"
+                domain="@saintgits.org"
                 errorMsg={errors["email"]}
                 isRequired={true}
+                className="email-textbox"
                 {...register("email")}
               />
               <TextField

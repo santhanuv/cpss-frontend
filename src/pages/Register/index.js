@@ -151,6 +151,7 @@ const Regsiter = () => {
               <TextField
                 label="Email"
                 type="email"
+                domain="@saintgits.org"
                 errorMsg={errors["email"]}
                 {...register("email")}
               />

@@ -71,7 +71,7 @@ const useForm = (initValue = {}, schema, activeFields = []) => {
 
     if (Object.keys(currentErrors).length !== 0) return;
 
-    setFormData(data);
+    // setFormData(data);
     return await callback(data);
   };
 
