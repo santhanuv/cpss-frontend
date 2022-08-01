@@ -21,6 +21,7 @@ const StyledRegister = styled.div`
   }
 
   .form-box {
+    min-width: 450px;
     border-radius: 10px;
     width: 500px;
     height: 100%;

@@ -31,6 +31,13 @@ const ContentWrapper = styled.div`
     display: block;
     margin-top: 25px;
   }
+
+  .email-textbox {
+    position: relative;
+  }
+
+  .email-textbox::before {
+  }
 `;
 
 export { LoginCard, ContentWrapper };
